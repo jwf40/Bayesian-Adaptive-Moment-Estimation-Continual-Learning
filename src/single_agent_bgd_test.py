@@ -5,29 +5,15 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from torch.utils.data import DataLoader, ConcatDataset, Subset
-import torchvision
+
 from torchvision.datasets import MNIST
 from torchvision.transforms import Compose
 import torchvision.transforms as transforms
 
 from tqdm import tqdm
-from data import PermutedMNIST
+from data import get_pmnist_data
 from models.basic_mlp import BasicMLP
 from optimizers_lib import fastbgd, bgd
-
-
-def get_pmnist_data(n_tasks, batch_size=128):    
-    train_loader = []
-    test_loader = []
-
-    idx = list(range(28 * 28))
-    for i in range(n_tasks):
-        random.shuffle(idx)
-        train_loader.append(DataLoader(PermutedMNIST(train=True, permute_idx=idx, id=i), batch_size=batch_size,num_workers=1, shuffle=True))
-        test_loader.append(DataLoader(PermutedMNIST(train=False, permute_idx=idx,  id=i),batch_size=batch_size))
-        
-    return (train_loader, test_loader)
 
 
 def train_bgd(model, dloaders, test_loaders,epochs,device='cpu', fast=False, mean_eta=1):
