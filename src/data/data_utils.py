@@ -22,7 +22,7 @@ def get_pmnist_data(n_tasks, batch_size=128):
         
     return (train_loader, test_loader)
 
-def _split(dataset ,n_classes,n_splits):
+def _split(dataset ,n_classes,n_splits, flatten=True, normalize=True):
     assert n_classes % n_splits == 0, 'Error, not an even split!'
     #Number of tensors in dataset, e.g. X, Y would be 2
     n_tensors = len(next(iter(dataset)))
@@ -35,6 +35,14 @@ def _split(dataset ,n_classes,n_splits):
     
     for data in dataset:
         #Infer class
+        data = list(data)
+        data[0] = pil_to_tensor(data[0])
+        data[0] = data[0].to(torch.float32)
+
+        if normalize:
+            data[0] /= 255
+        if flatten:
+            data[0] = data[0].view(-1)
         y = data[1]
         idx = y//class_cnt
         #Populate tensor dict
@@ -47,9 +55,11 @@ def _split(dataset ,n_classes,n_splits):
         for key in sorted(tensor_dict.keys()):
             #Get list of all Tensors for a given split.
             try:
-                sub_li.append(torch.Tensor(tensor_dict[key][idx]))
+                dtype = torch.float32 if key != 1 else torch.int64
+                sub_li.append(torch.tensor(tensor_dict[key][idx], dtype=dtype))
+                
             except:
-                sub_li.append(torch.stack([pil_to_tensor(pic) for pic in tensor_dict[key][idx]]))
+                sub_li.append(torch.stack(tensor_dict[key][idx]))
         #Convert list to tensor dataset, unroll list of tensors as args
         return_li.append(TensorDataset(*sub_li))    
     return return_li
@@ -63,6 +73,7 @@ def get_split_mnist_data(n_tasks, batch_size=128):
 
     train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
     test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
-
+    
     return (train_loader, test_loader)
+
 
