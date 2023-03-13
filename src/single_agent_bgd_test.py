@@ -101,9 +101,7 @@ if __name__=='__main__':
     train_loader, test_loader = get_split_mnist_data(n_tasks=N_TASKS,batch_size=BATCH_SIZE)#get_pmnist_data(n_tasks=N_TASKS,batch_size=BATCH_SIZE)
     model = BasicMLP().to(DEVICE)    
     trldrs = GraduatedDataLoader(train_loader)
-    for data in trldrs:
-        a = 1
-    sys.exit()
+
     # train_sgd(model,train_loader,test_loader,EPOCHS,DEVICE, adam=True)
     # model = BasicMLP().to(DEVICE)
     # train_sgd(model,train_loader,test_loader,EPOCHS,DEVICE, adam=False)

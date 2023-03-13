@@ -6,7 +6,7 @@ from typing import Union
 from copy import deepcopy
 
 class GraduatedDataLoader:
-    def __init__(self, dloaders: list, k=10):
+    def __init__(self, dloaders: list, k=12):
         self.dloaders = dloaders
         self.iter_loaders = [iter(dl) for dl in dloaders]
         self.n_tasks = len(dloaders)
@@ -58,11 +58,21 @@ class GraduatedDataLoader:
         def _get_task_choice():
             for tsk in self.finished_tasks:
                 self.draw_probs[tsk] = 0.0
-            task_choice = random.choices(self.task_li, weights=self.draw_probs, k=1)[0]
-            return task_choice
-        
+            
+            # allow for floating point error
+            if sum(self.draw_probs) > 1e-5:
+                task_choice = random.choices(self.task_li, weights=self.draw_probs, k=1)[0]
+                return task_choice
+            else:
+                raise StopIteration
+
+
+
         #Select which task to learn from
         task_choice = _get_task_choice()
+
+        if isinstance(task_choice, type(StopIteration)):
+            return task_choice
         
         try:
             return_data = next(self.iter_loaders[task_choice])
@@ -73,8 +83,8 @@ class GraduatedDataLoader:
         except StopIteration:
             print(f"Finished Task {task_choice}")
             self.finished_tasks.append(task_choice)
-            if len(self.finished_tasks) == len(self.task_li):
-                return StopIteration
+            if len(self.finished_tasks) == len(self.task_li) or sum(self.draw_probs) < 1e-5:
+                raise StopIteration
             else:
                 return self.__next__()            
 
