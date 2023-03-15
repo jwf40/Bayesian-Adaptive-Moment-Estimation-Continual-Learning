@@ -1,18 +1,9 @@
 import numpy as np
-import random
 import pickle
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import matplotlib.pyplot as plt
-
-from torchvision.datasets import MNIST
-from torchvision.transforms import Compose
-import torchvision.transforms as transforms
-
 from tqdm import tqdm
-from data import get_pmnist_data, get_split_mnist_data, GraduatedDataLoader
-from models.basic_mlp import BasicMLP
 from optimizers_lib import fastbgd, bgd
 
 
@@ -88,26 +79,3 @@ def test(model, dloaders, device='cpu'):
         accs.append(acc.item())
     print(f'Task acc: {accs}')
     return accs
-
-if __name__=='__main__':
-    N_TASKS = 5
-    BATCH_SIZE = 128
-    EPOCHS = 3
-    DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-    # random.seed(12345)
-    # np.random.seed(12345)
-    # torch.manual_seed(12345)
-
-    train_loader, test_loader = get_split_mnist_data(n_tasks=N_TASKS,batch_size=BATCH_SIZE)#get_pmnist_data(n_tasks=N_TASKS,batch_size=BATCH_SIZE)
-    model = BasicMLP().to(DEVICE)    
-    trldrs = GraduatedDataLoader(train_loader)
-
-    # train_sgd(model,train_loader,test_loader,EPOCHS,DEVICE, adam=True)
-    # model = BasicMLP().to(DEVICE)
-    # train_sgd(model,train_loader,test_loader,EPOCHS,DEVICE, adam=False)
-    # model = BasicMLP().to(DEVICE)
-    # train_bgd(model,train_loader,test_loader,EPOCHS,DEVICE, fast=False, mean_eta=1)
-    # model = BasicMLP().to(DEVICE)
-    # train_bgd(model,train_loader,test_loader,EPOCHS,DEVICE, fast=False, mean_eta=1)
-    # model = BasicMLP().to(DEVICE)
-    train_bgd(model,train_loader,test_loader,EPOCHS,DEVICE, fast=True, mean_eta=0.1)

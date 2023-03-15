@@ -5,10 +5,11 @@ import PIL.Image
 from torch.utils.data import DataLoader, TensorDataset
 from torchvision.datasets import MNIST
 from torchvision.transforms.functional import pil_to_tensor
-
+from models.basic_mlp import BasicMLP
 from .pmnist_data import PermutedMNIST
 
-def get_pmnist_data(n_tasks, batch_size=128):    
+def get_pmnist(n_tasks, batch_size=128, **kwargs):    
+    kwargs = {'n_classes':10}
     train_loader = []
     test_loader = []
 
@@ -20,9 +21,9 @@ def get_pmnist_data(n_tasks, batch_size=128):
         test_loader.append(DataLoader(PermutedMNIST(train=False, permute_idx=idx,  id=i),\
                                       batch_size=batch_size))
         
-    return (train_loader, test_loader)
+    return (train_loader, test_loader,kwargs)
 
-def _split(dataset ,n_classes,n_splits, flatten=True, normalize=True):
+def _split(dataset ,n_classes,n_splits, flatten=True, normalize=True, **kwargs):
     assert n_classes % n_splits == 0, 'Error, not an even split!'
     #Number of tensors in dataset, e.g. X, Y would be 2
     n_tensors = len(next(iter(dataset)))
@@ -65,15 +66,24 @@ def _split(dataset ,n_classes,n_splits, flatten=True, normalize=True):
     return return_li
    
         
-
-    
-def get_split_mnist_data(n_tasks, batch_size=128):
+   
+def get_DIsplitmnist(n_tasks, batch_size=128, **kwargs):
+    kwargs = {'n_classes':2}
     train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
     test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
 
     train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
     test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
     
-    return (train_loader, test_loader)
+    return (train_loader, test_loader,kwargs)
 
 
+def get_CIsplitmnist(n_tasks, batch_size=128, **kwargs):
+    kwargs = {'n_classes':10}
+    train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
+    test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
+
+    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
+    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
+    
+    return (train_loader, test_loader,kwargs)
