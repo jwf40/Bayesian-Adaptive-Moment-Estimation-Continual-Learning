@@ -42,21 +42,22 @@ class MAS(BaseCLMethod):
                 imps[k].data /= float(len(iter_struct))
             return imps
 
-        if self.task_counter == 0:
+        if self.task_counter > 0:
+            current_importances = _get_importances(x)
+            for n in current_importances.keys():
+                curr_shape = current_importances[n].data.shape
+                if n not in self.importances:
+                    self.importances[n] = current_importances[n].data.clone()
+                else:
+                    self.importances[n].data = (
+                        self.alpha_ * self.importances[n].expand(curr_shape)
+                        + (1-self.alpha_)*current_importances[n].data
+                    )
+        else:
             self.importances = _get_importances(x)
-            self.task_counter += 1
-            return
         
-        current_importances = _get_importances(x)
-        for n in current_importances.keys():
-            curr_shape = current_importances[n].data.shape
-            if n not in self.importances:
-                self.importances[n] = current_importances[n].data.clone()
-            else:
-                self.importances[n].data = (
-                    self.alpha_ * self.importances[n].expand(curr_shape)
-                    + (1-self.alpha_)*current_importances[n].data
-                )
+        self.task_counter += 1
+        return
 
 
     def _calc_reg(self):
@@ -80,7 +81,7 @@ class MAS(BaseCLMethod):
                 out = self.model(x)
                 loss = self.criterion(out, y)
                 epoch_loss += loss
-                loss += self._calc_reg()
+                #loss += self._calc_reg()
                 loss.backward()
                 self.optim.step()
 

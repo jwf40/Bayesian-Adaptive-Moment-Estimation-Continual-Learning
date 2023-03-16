@@ -18,23 +18,24 @@ from optimizers_lib import fastbgd, bgd
 
 
 
-parser = argparse.ArgumentParser(description='Continual Learning Script')
-parser.add_argument('-a','--alg', help='continual learning algorithm to use', required=True)
-parser.add_argument('-x','--exp', help='experiment to run, and dataset to use', required=True)
-parser.add_argument('-g', '--graduated', type=bool,help='whether or not to use graduated data', required=False, default=False)
-parser.add_argument('-e','--epochs', type=int,help='number of epochs per task', required=False, default=1)
-parser.add_argument('-b','--batch_size', type=int, help='batch size', required=False)
-parser.add_argument('-t','--n_tasks', type=int, help='number of tasks', required=False)
-parser.add_argument('-d', '--device', help='device to run on', required=False, default='cuda' if torch.cuda.is_available() else 'cpu')
-parser.add_argument('-l', '--labels', type=bool, help='Whether task labels are available to method', required=True)
-args = vars(parser.parse_args())
-print(args)
+# parser = argparse.ArgumentParser(description='Continual Learning Script')
+# parser.add_argument('-a','--alg', help='continual learning algorithm to use', required=True)
+# parser.add_argument('-x','--exp', help='experiment to run, and dataset to use', required=True)
+# parser.add_argument('-g', '--graduated', type=bool,help='whether or not to use graduated data', required=False, default=False)
+# parser.add_argument('-e','--epochs', type=int,help='number of epochs per task', required=False, default=1)
+# parser.add_argument('-b','--batch_size', type=int, help='batch size', required=False)
+# parser.add_argument('-t','--n_tasks', type=int, help='number of tasks', required=False)
+# parser.add_argument('-d', '--device', help='device to run on', required=False, default='cuda' if torch.cuda.is_available() else 'cpu')
+# parser.add_argument('-l', '--labels', type=bool, help='Whether task labels are available to method', required=False, default=False)
+# args = vars(parser.parse_args())
+# print(args)
 
 if __name__=='__main__':
     # random.seed(12345)
     # np.random.seed(12345)
     # torch.manual_seed(12345)
 
+    args = {'alg': 'mas', 'exp': 'pmnist', 'graduated': False, 'epochs': 5, 'batch_size': 128, 'n_tasks': None, 'device': 'cuda', 'labels': True}
    
     getattr(experiments, f"{args['alg']}_main")(**args)
     
