@@ -23,4 +23,5 @@ def _get_data(**kwargs):
 def mas_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
     model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
-    
+    mas = MAS(model, train_loader, test_loader, **kwargs)
+    mas.run()

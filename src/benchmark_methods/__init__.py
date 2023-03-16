@@ -1,1 +1,2 @@
-from mas import MAS
+from .mas import *
+from .base import *
