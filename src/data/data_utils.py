@@ -8,7 +8,7 @@ from torchvision.transforms.functional import pil_to_tensor
 from models.basic_mlp import BasicMLP
 from .pmnist_data import PermutedMNIST
 
-def get_pmnist(n_tasks, batch_size=128, **kwargs):    
+def get_pmnist(n_tasks=10, batch_size=128, **kwargs):    
     kwargs = {'n_classes':10}
     train_loader = []
     test_loader = []
@@ -67,7 +67,7 @@ def _split(dataset ,n_classes,n_splits, flatten=True, normalize=True, **kwargs):
    
         
    
-def get_DIsplitmnist(n_tasks, batch_size=128, **kwargs):
+def get_DIsplitmnist(n_tasks=5, batch_size=128, **kwargs):
     kwargs = {'n_classes':2}
     train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
     test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
@@ -78,7 +78,7 @@ def get_DIsplitmnist(n_tasks, batch_size=128, **kwargs):
     return (train_loader, test_loader,kwargs)
 
 
-def get_CIsplitmnist(n_tasks, batch_size=128, **kwargs):
+def get_CIsplitmnist(n_tasks=5, batch_size=128, **kwargs):
     kwargs = {'n_classes':10}
     train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
     test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
