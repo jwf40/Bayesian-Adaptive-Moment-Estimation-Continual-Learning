@@ -12,7 +12,7 @@ class BaseCLMethod:
         self.epochs = kwargs['epochs']
         self.device = kwargs['device']       
         self.use_labels = kwargs['labels']
-        self.optim = optim.Adam(self.model.parameters(), lr=0.001, betas=(0.9,0.99))
+        self.optim = optim.Adam(self.model.parameters(), lr=0.0001, betas=(0.9,0.999))
         self.criterion = nn.CrossEntropyLoss()
         self.loss_per_iter = []
         self.test_acc_per_iter = []
@@ -32,4 +32,8 @@ class BaseCLMethod:
 
     def zerolike_params_dict(self):
         return dict([(n, torch.zeros_like(p))
+                for n, p in self.model.named_parameters()])
+    
+    def copy_params_dict(self):
+        return dict([(n, p.data.clone())
                 for n, p in self.model.named_parameters()])

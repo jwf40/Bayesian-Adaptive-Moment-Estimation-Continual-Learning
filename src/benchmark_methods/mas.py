@@ -42,6 +42,8 @@ class MAS(BaseCLMethod):
                 imps[k].data /= float(len(iter_struct))
             return imps
 
+        self.last_params = self.copy_params_dict()
+
         if self.task_counter > 0:
             current_importances = _get_importances(x)
             for n in current_importances.keys():
@@ -81,7 +83,7 @@ class MAS(BaseCLMethod):
                 out = self.model(x)
                 loss = self.criterion(out, y)
                 epoch_loss += loss
-                #loss += self._calc_reg()
+                loss += self._calc_reg()
                 loss.backward()
                 self.optim.step()
 
@@ -89,11 +91,20 @@ class MAS(BaseCLMethod):
                     self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances(x)
 
-            print(epoch_loss)
+            # print(epoch_loss)
         if self.use_labels:
             self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
             self._update_importances()
 
+    def test(self):        
+        for idx,task in enumerate(self.test_loader):
+            task_acc = 0
+            for data in task:
+                x, y = data[0].to(self.device), data[1].to(self.device)
+                preds = self.model(x)
+                task_acc += ((torch.argmax(preds, dim=1)==y).sum())/len(y)
+            task_acc /= len(task)
+            print(f'Task {idx} Accuracy: {task_acc}')
                 
                 
 
