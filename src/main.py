@@ -35,7 +35,7 @@ if __name__=='__main__':
     # np.random.seed(12345)
     # torch.manual_seed(12345)
 
-    args = {'alg': 'mas', 'exp': 'pmnist', 'graduated': False, 'epochs': 5000, 'batch_size': 128, 'n_tasks': None, 'device': 'cuda', 'labels': True}
+    args = {'alg': 'synaptic_intelligence', 'exp': 'pmnist', 'graduated': False, 'epochs': 10, 'batch_size': 128, 'n_tasks': 5, 'device': 'cuda', 'labels': True}
    
     getattr(experiments, f"{args['alg']}_main")(**args)
     

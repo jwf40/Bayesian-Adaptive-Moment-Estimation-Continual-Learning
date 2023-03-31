@@ -23,5 +23,23 @@ def _get_data(**kwargs):
 def mas_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
     model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
-    mas = MAS(model, train_loader, test_loader, **kwargs)
-    mas.run()
+    method = MAS(model, train_loader, test_loader, **kwargs)
+    method.run()
+
+def ewc_main(**kwargs):
+    train_loader, test_loader, kwargs = _get_data(**kwargs)
+    model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = EWC(model, train_loader, test_loader, **kwargs)
+    method.run()
+
+def ewconline_main(**kwargs):
+    train_loader, test_loader, kwargs = _get_data(**kwargs)
+    model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = EWCOnline(model, train_loader, test_loader, **kwargs)
+    method.run()
+
+def synaptic_intelligence_main(**kwargs):
+    train_loader, test_loader, kwargs = _get_data(**kwargs)
+    model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = SynapticIntelligence(model, train_loader, test_loader, **kwargs)
+    method.run()

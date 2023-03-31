@@ -19,7 +19,6 @@ class GraduatedDataLoader:
         self._init_task_peaks()
         self.update_draw_probs()    
 
-
     def _init_task_peaks(self):
         """
         Calculate the iteration where each task should have its peak probability.

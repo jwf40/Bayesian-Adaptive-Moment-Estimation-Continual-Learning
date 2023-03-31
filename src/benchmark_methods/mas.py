@@ -6,27 +6,24 @@ import torch.optim as optim
 from tqdm import tqdm
 from .base import BaseCLMethod
 
+
 class MAS(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader, **kwargs)
         self.lambda_ = 1.0
         self.alpha_ = 0.5
         self.importances = self.zerolike_params_dict()
-        self.last_params = self.zerolike_params_dict()
-
-    def run(self):            
-        for task in self.train_loader:
-            self.train(task)
-            self.test()
+        self.saved_params = self.zerolike_params_dict()
 
     def _update_importances(self, x=None):
         def _get_importances(x=None):
             imps = self.zerolike_params_dict()
             self.model.train()
-            
+
             iter_struct = self.train_loader[self.task_counter] if not x else [(x, -1)]
             for data in iter_struct:
                 x = data[0].to(self.device)
+                self.optim.zero_grad()
                 out = self.model(x)
                 loss = torch.norm(out, p="fro", dim=1).pow(2).mean()
                 loss.backward()
@@ -42,7 +39,7 @@ class MAS(BaseCLMethod):
                 imps[k].data /= float(len(iter_struct))
             return imps
 
-        self.last_params = self.copy_params_dict()
+        self.saved_params = self.copy_params_dict()
 
         if self.task_counter > 0:
             current_importances = _get_importances(x)
@@ -53,29 +50,28 @@ class MAS(BaseCLMethod):
                 else:
                     self.importances[n].data = (
                         self.alpha_ * self.importances[n].expand(curr_shape)
-                        + (1-self.alpha_)*current_importances[n].data
+                        + (1 - self.alpha_) * current_importances[n].data
                     )
         else:
             self.importances = _get_importances(x)
-        
+
         self.task_counter += 1
         return
 
-
     def _calc_reg(self):
         if self.task_counter == 0:
-            return 0
+            return 0.0
         loss_reg = 0.0
-        for n,p in self.model.named_parameters():
+        for n, p in self.model.named_parameters():
             if n in self.importances.keys():
                 loss_reg += torch.sum(
-                    self.importances[n].expand(p.shape) *
-                    (p - self.last_params[n].expand(p.shape)).pow(2)
+                    self.importances[n].expand(p.shape)
+                    * (p - self.saved_params[n].expand(p.shape)).pow(2)
                 )
-        return self.lambda_*loss_reg
-    
+        return self.lambda_ * loss_reg
+
     def train(self, loader):
-        for ep in range(self.epochs):
+        for ep in tqdm(range(self.epochs)):
             epoch_loss = 0.0
             for idx, data in enumerate(loader):
                 self.optim.zero_grad()
@@ -88,23 +84,10 @@ class MAS(BaseCLMethod):
                 self.optim.step()
 
                 if not self.use_labels:
-                    self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
+                    # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances(x)
 
             # print(epoch_loss)
         if self.use_labels:
-            self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
+            # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
             self._update_importances()
-
-    def test(self):        
-        for idx,task in enumerate(self.test_loader):
-            task_acc = 0
-            for data in task:
-                x, y = data[0].to(self.device), data[1].to(self.device)
-                preds = self.model(x)
-                task_acc += ((torch.argmax(preds, dim=1)==y).sum())/len(y)
-            task_acc /= len(task)
-            print(f'Task {idx} Accuracy: {task_acc}')
-                
-                
-

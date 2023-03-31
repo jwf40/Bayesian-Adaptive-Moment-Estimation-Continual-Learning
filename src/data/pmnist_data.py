@@ -5,8 +5,8 @@ from torchvision import datasets
 
 class PermutedMNIST(datasets.MNIST):
 
-    def __init__(self, root="~/.torch/data/mnist", train=True, permute_idx=None, id=-1):
-        super(PermutedMNIST, self).__init__(root, train, download=True)
+    def __init__(self, root="~/.torch/data/mnist", train=True, permute_idx=None, id=-1, transform=None):
+        super(PermutedMNIST, self).__init__(root, train, transform, download=True)
         assert len(permute_idx) == 28 * 28        
 
         self.data = torch.stack([img.float().view(-1)[permute_idx] / 255 for img in self.data])

@@ -4,6 +4,7 @@ import torch
 import PIL.Image
 from torch.utils.data import DataLoader, TensorDataset
 from torchvision.datasets import MNIST
+from torchvision.transforms import Compose, Normalize
 from torchvision.transforms.functional import pil_to_tensor
 from models.basic_mlp import BasicMLP
 from .pmnist_data import PermutedMNIST
@@ -14,12 +15,15 @@ def get_pmnist(batch_size=128, **kwargs):
     train_loader = []
     test_loader = []
 
+    transforms = Compose([Normalize((0.1307,), (0.3081,))])
+
     idx = list(range(28 * 28))
+    
     for i in range(n_tasks):
         random.shuffle(idx)
-        train_loader.append(DataLoader(PermutedMNIST(train=True, permute_idx=idx, id=i),\
+        train_loader.append(DataLoader(PermutedMNIST(train=True, permute_idx=idx, id=i, transform=transforms),\
                                         batch_size=batch_size,num_workers=1, shuffle=True))
-        test_loader.append(DataLoader(PermutedMNIST(train=False, permute_idx=idx,  id=i),\
+        test_loader.append(DataLoader(PermutedMNIST(train=False, permute_idx=idx,  id=i,  transform=transforms),\
                                       batch_size=batch_size))
         
     return (train_loader, test_loader,kwargs)

@@ -4,7 +4,7 @@ from .fast_bgd import Fast_BGD
 def fastbgd(model, **kwargs):
     bgd_params = {
         "mean_eta": kwargs.get("mean_eta", 1),
-        "std_init": kwargs.get("std_init", 0.02),
+        "std_init": kwargs.get("std_init", 0.06),
         "mc_iters": kwargs.get("mc_iters", 10),
     }
     all_params = [{'params': params} for l, (name, params) in enumerate(model.named_parameters())]
@@ -13,7 +13,7 @@ def fastbgd(model, **kwargs):
 def bgd(model, **kwargs):
     bgd_params = {
         "mean_eta": kwargs.get("mean_eta", 1),
-        "std_init": kwargs.get("std_init", 0.02),
+        "std_init": kwargs.get("std_init", 0.06),
         "mc_iters": kwargs.get("mc_iters", 10)
     }
     all_params = [{'params': params} for l, (name, params) in enumerate(model.named_parameters())]

@@ -32,9 +32,7 @@ class BGD(Optimizer):
         self.mean_eta = mean_eta
         self.mc_iters = mc_iters
         # Initialize mu (mean_param) and sigma (std_param)
-
         for group in self.param_groups:
-
             assert len(group["params"]) == 1, "BGD optimizer does not support multiple params in a group"
             # group['params'][0] is the weights
             assert isinstance(group["params"][0], torch.Tensor), "BGD expect param to be a tensor"
@@ -78,18 +76,12 @@ class BGD(Optimizer):
         """
         self.mc_iters_taken += 1
         groups_cnt = 0
-        device = torch.device("cuda:0" if torch.cuda.is_available else "cpu")
         for group in self.param_groups:
-            for each in group.keys():
-                if isinstance(group[each], torch.Tensor):
-                    group[each] = group[each].to(device)
             if group["params"][0].grad is None:
                 continue
             assert group["eps"] is not None, "Must randomize weights before using aggregate_grads"
             groups_cnt += 1
             grad = group["params"][0].grad.data.mul(batch_size)
-            # group["grad_sum"] = group["grad_sum"].detach().cpu()
-            # grad = grad.detach().cpu()
             group["grad_sum"].add_(grad)
             group["grad_mul_eps_sum"].add_(grad.mul(group["eps"]))
             group["eps"] = None
