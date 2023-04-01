@@ -7,6 +7,7 @@ from tqdm import tqdm
 from optimizers_lib import fastbgd, bgd# Get requested dataset 
 import data
 from models.basic_mlp import BasicMLP
+from models.vcl_model import PermutedModel
 from benchmark_methods import *
 
 def _get_data(**kwargs):
@@ -43,3 +44,17 @@ def synaptic_intelligence_main(**kwargs):
     model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
     method = SynapticIntelligence(model, train_loader, test_loader, **kwargs)
     method.run()
+
+def vcl_main(**kwargs):
+    train_loader, test_loader, kwargs = _get_data(**kwargs)
+    model = PermutedModel(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = VCL(model, train_loader, test_loader, **kwargs)
+    method.run()
+
+def coreset_vcl_main(**kwargs):
+    raise NotImplementedError
+    train_loader, test_loader, kwargs = _get_data(**kwargs)
+    coreset_method = attach_random_coreset_permuted if 'pmnist' in kwargs['exp'] else attach_random_coreset_split
+    model = PermutedModel(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = VCL(model, train_loader, test_loader, **kwargs)
+    method.run(coreset_method=coreset_method)

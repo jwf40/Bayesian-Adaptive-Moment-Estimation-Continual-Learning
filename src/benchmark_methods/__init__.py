@@ -4,3 +4,5 @@ from .ewc import *
 from .ewc_online import *
 from .synaptic_intelligence import *
 from .av_synaptic_intelligence import *
+from .vcl import *
+from .coresets import *
