@@ -14,9 +14,9 @@ class PermutedModel(nn.Module):
         """
         self.n_classes = n_classes
         super().__init__()
-        self.fc1 = BBBLinear(784, 100)
-        self.fc2 = BBBLinear(100, 100)
-        self.classifier = BBBLinear(100, n_classes)
+        self.fc1 = BBBLinear(784, 200)
+        self.fc2 = BBBLinear(200, 200)
+        self.classifier = BBBLinear(200, n_classes)
 
     def forward(self, x):
         out = x.view(-1, 784)

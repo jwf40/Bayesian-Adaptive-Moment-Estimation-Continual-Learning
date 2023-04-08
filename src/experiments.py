@@ -23,25 +23,25 @@ def _get_data(**kwargs):
 
 def mas_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
     method = MAS(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def ewc_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
     method = EWC(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def ewconline_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
     method = EWCOnline(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def synaptic_intelligence_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
     method = SynapticIntelligence(model, train_loader, test_loader, **kwargs)
     method.run()
 
@@ -51,10 +51,21 @@ def vcl_main(**kwargs):
     method = VCL(model, train_loader, test_loader, **kwargs)
     method.run()
 
-def coreset_vcl_main(**kwargs):
-    raise NotImplementedError
+def tfcl_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    coreset_method = attach_random_coreset_permuted if 'pmnist' in kwargs['exp'] else attach_random_coreset_split
-    model = PermutedModel(n_classes=kwargs['n_classes']).to(kwargs["device"])
-    method = VCL(model, train_loader, test_loader, **kwargs)
-    method.run(coreset_method=coreset_method)
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = Task_free_continual_learning(model, train_loader, test_loader, **kwargs)
+    method.run()
+
+def badam_main(**kwargs):
+    train_loader, test_loader, kwargs = _get_data(**kwargs)
+    assert isinstance(train_loader, list)
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = Badam(model, train_loader, test_loader, **kwargs)
+    method.run()
+
+def bgd_main(**kwargs):
+    train_loader, test_loader, kwargs = _get_data(**kwargs)    
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    method = BGD(model, train_loader, test_loader, **kwargs)
+    method.run()

@@ -11,7 +11,7 @@ from .pmnist_data import PermutedMNIST
 
 def get_pmnist(batch_size=128, **kwargs):    
     n_tasks= 10 if not kwargs['n_tasks'] else kwargs['n_tasks']
-    kwargs = {'n_classes':10}
+    kwargs = {'n_classes':10, 'hidden':200, 'mean_eta': 0.3, 'std': 0.06}
     train_loader = []
     test_loader = []
 
@@ -70,24 +70,69 @@ def _split(dataset ,n_classes,n_splits, flatten=True, normalize=True, **kwargs):
         return_li.append(TensorDataset(*sub_li))    
     return return_li
    
-        
+
+def _displit(dataset, class_split: tuple[list,list], n_splits, flatten=True, normalize=True, **kwargs):
+    #Number of tensors in dataset, e.g. X, Y would be 2
+    n_tensors = len(next(iter(dataset)))
+
+    #Dictionary of each tensor split into the correct subclasses, one for each tensor
+    tensor_dict = {idx: [[] for _ in range(n_splits)] \
+                   for idx in range(n_tensors)}
+    
+    for data in dataset:
+        #Infer class
+        data = list(data)
+        data[0] = pil_to_tensor(data[0])
+        data[0] = data[0].to(torch.float32)
+
+        if normalize:
+            data[0] /= 255
+        if flatten:
+            data[0] = data[0].view(-1)
+        y = data[1]
+        idx = -1
+        for i in range(len(class_split)):
+            if y in class_split[i]:
+                idx = class_split[i].index(y)
+                data[1] = i
+                break
+        #Populate tensor dict
+        for tensor_idx in tensor_dict.keys():
+            tensor_dict[tensor_idx][idx].append(data[tensor_idx])
+    
+    return_li = []
+    for idx in range(n_splits):
+        sub_li = []
+        for key in sorted(tensor_dict.keys()):
+            #Get list of all Tensors for a given split.
+            try:
+                dtype = torch.float32 if key != 1 else torch.int64
+                sub_li.append(torch.tensor(tensor_dict[key][idx], dtype=dtype))
+                
+            except:
+                sub_li.append(torch.stack(tensor_dict[key][idx]))
+        #Convert list to tensor dataset, unroll list of tensors as args
+        return_li.append(TensorDataset(*sub_li))    
+    return return_li
    
 def get_DIsplitmnist(batch_size=128, **kwargs):
-    n_tasks= 10 if not kwargs['n_tasks'] else kwargs['n_tasks']
+    n_tasks= 5 if not kwargs['n_tasks'] else kwargs['n_tasks']
         
-    kwargs = {'n_classes':2}
-    train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
-    test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
+    kwargs = {'n_classes':10,'hidden':200, 'mean_eta': 0.2, 'std': 0.01}
+    target_1 = [0,2,4,6,8]
+    target_2 = [1,3,5,7,9]
+    train_dsets = _displit(MNIST(root="~/.torch/data/mnist", train=True, download=True),(target_1, target_2), n_classes=10, n_splits=n_tasks)
+    test_dsets = _displit(MNIST(root="~/.torch/data/mnist", train=False, download=True), (target_1, target_2), n_classes=10, n_splits=n_tasks)
 
-    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
-    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
-    
+    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(len(test_dsets))]
+    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(len(test_dsets))]
+
     return (train_loader, test_loader,kwargs)
 
 
 def get_CIsplitmnist(batch_size=128, **kwargs):
-    n_tasks= 10 if not kwargs['n_tasks'] else kwargs['n_tasks']
-    kwargs = {'n_classes':10}
+    n_tasks= 5 if not kwargs['n_tasks'] else kwargs['n_tasks']
+    kwargs = {'n_classes':10, 'hidden':200, 'mean_eta': 0.2, 'std': 0.01}
     train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
     test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
 

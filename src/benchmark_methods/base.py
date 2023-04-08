@@ -7,25 +7,45 @@ from tqdm import tqdm
 
 
 class BaseCLMethod:
-    def __init__(self, model, train_loader, test_loader, **kwargs):
+    def __init__(self, model, train_loader, test_loader, file_name, **kwargs):
+        self._run = kwargs['run']
         self.model = model.to(kwargs["device"])
         self.train_loader = train_loader
         self.test_loader = test_loader
+        self.dim=next(iter(train_loader[0]))[0].shape[1]
         self.epochs = kwargs["epochs"]
         self.device = kwargs["device"]
         self.use_labels = kwargs["labels"]
-        self.optim = optim.SGD(
-            self.model.parameters(), lr=0.001, momentum=0.9
-        )  # , betas=(0.9,0.999)
+        self.root = kwargs["root"]
+        self.file_name = file_name
+        self.optim = optim.Adam(
+            self.model.parameters(), lr=0.001, betas=(0.9,0.999)
+        )  # , momentum=0.9
         self.criterion = nn.CrossEntropyLoss()
-        self.loss_per_iter = []
-        self.test_acc_per_iter = []
         self.task_counter = 0
+        self.test_acc_list = [[] for _ in range(len(self.test_loader))]
+        self.kwargs = kwargs
+        
+    def get_task_boundaries(self, graduated=False):
+        loaders = self.train_loader
+        if graduated:
+            loaders = self.train_loader[0].dloaders
+        boundaries = []
+        for idx, each in enumerate(loaders):
+            if idx == 0:
+                boundaries.append(len(each))
+            else:
+                boundaries.append(len(each)+ boundaries[idx-1])
+        return boundaries
+
 
     def run(self):
         for task in tqdm(self.train_loader):
             self.train(task)
             self.test()
+        self.save(self.test_acc_list, self.root+self.file_name)
+        is_graduated = 'graduated' if self.kwargs['graduated'] else 'with_boundaries'
+        self.save(self.get_task_boundaries(self.kwargs['graduated']), f"results/exp_bounds/{self.kwargs['exp']}_{is_graduated}_task_boundaries")
 
     def train(self, loader):
         raise NotImplementedError
@@ -38,10 +58,12 @@ class BaseCLMethod:
                 preds = self.model(x)
                 task_acc += ((torch.argmax(preds, dim=1) == y).sum()) / len(y)
             task_acc /= len(task)
-            print(f"Task {idx} Accuracy: {task_acc}")
+            self.test_acc_list[idx].append(task_acc)
+            #print(f"Task {idx} Accuracy: {task_acc}")
 
-    def save(self):
-        raise NotImplementedError
+    def save(self, obj,file_path):
+        with open(file_path+f'_run_{str(self._run)}', 'wb') as f:
+            pickle.dump(obj, f)
 
     # def zerolike_params_dict(self):
     #     return dict([(n, torch.zeros_like(p))

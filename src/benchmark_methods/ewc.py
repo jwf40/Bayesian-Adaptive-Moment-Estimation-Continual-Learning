@@ -10,14 +10,14 @@ from .base import BaseCLMethod
 
 class EWC(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
-        super().__init__(model, train_loader, test_loader, **kwargs)
+        super().__init__(model, train_loader, test_loader, \
+                         file_name = f"EWC_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}", **kwargs)
         self.lambda_ = 1000
         self.importances = defaultdict(dict)
         self.saved_params = defaultdict(dict)
 
     def _calc_reg(self):
         if self.task_counter == 0:
-            print("Returning becuase its task:", self.task_counter)
             return 0.0
 
         penalty = torch.tensor(0).float().to(self.device)
@@ -36,7 +36,7 @@ class EWC(BaseCLMethod):
 
     def _compute_importances(self, data=None):
         _importances = self.zerolike_params_dict()
-        iter_struct = self.train_loader[self.task_counter] if not data else [data]
+        iter_struct = self.train_loader[self.task_counter] if data==None else [data]
         for data in iter_struct:
             x, y = data[0].to(self.device), data[1].to(self.device)
             self.optim.zero_grad()
@@ -59,20 +59,18 @@ class EWC(BaseCLMethod):
     def _update_importances(self, data=None):
         self.importances[self.task_counter] = self._compute_importances(data)
         self.saved_params[self.task_counter] = self.copy_params_dict()
-        # if self.task_counter>0:
-        #     del self.saved_params[self.task_counter-1]
+        if self.task_counter>0:
+            del self.saved_params[self.task_counter-1]
         self.task_counter += 1
         return
 
-    def train(self, loader):
+    def train(self, loader):        
         for ep in tqdm(range(self.epochs)):
-            epoch_loss = 0.0
-            for idx, data in enumerate(loader):
+            for idx, data in enumerate(tqdm(loader)):
                 self.optim.zero_grad()
                 x, y = data[0].to(self.device), data[1].to(self.device)
                 out = self.model(x)
                 loss = self.criterion(out, y)
-                epoch_loss += loss
                 loss += self._calc_reg()
                 loss.backward()
                 self.optim.step()
@@ -80,8 +78,9 @@ class EWC(BaseCLMethod):
                 if not self.use_labels:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances((x, y))
+                    self.test()
 
             # print(epoch_loss)
-        if self.use_labels:
+        if self.use_labels and idx %100==0:
             # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
             self._update_importances()

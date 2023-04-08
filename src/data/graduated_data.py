@@ -14,6 +14,7 @@ class GraduatedDataLoader:
         self.finished_tasks = []
         self.k = k
         self.len = sum(len(d) for d in dloaders)
+        self.size = sum(len(d.dataset) for d in dloaders)
         self._choices = [0 for _ in self.task_li]
         self.iter_num = 0
         self._init_task_peaks()
@@ -51,9 +52,6 @@ class GraduatedDataLoader:
         return self
     
     def __next__(self):
-        if self.iter_num % 10 == 0:
-            print(f"Task Choices: {self._choices}, Draw Probs: {self.draw_probs}")
-
         def _get_task_choice():
             for tsk in self.finished_tasks:
                 self.draw_probs[tsk] = 0.0

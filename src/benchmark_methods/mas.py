@@ -9,7 +9,8 @@ from .base import BaseCLMethod
 
 class MAS(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
-        super().__init__(model, train_loader, test_loader, **kwargs)
+        super().__init__(model, train_loader, test_loader,\
+                         file_name = f"MAS_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}", **kwargs)
         self.lambda_ = 1.0
         self.alpha_ = 0.5
         self.importances = self.zerolike_params_dict()
@@ -20,7 +21,7 @@ class MAS(BaseCLMethod):
             imps = self.zerolike_params_dict()
             self.model.train()
 
-            iter_struct = self.train_loader[self.task_counter] if not x else [(x, -1)]
+            iter_struct = self.train_loader[self.task_counter] if x==None else [(x, -1)]
             for data in iter_struct:
                 x = data[0].to(self.device)
                 self.optim.zero_grad()
@@ -70,22 +71,21 @@ class MAS(BaseCLMethod):
                 )
         return self.lambda_ * loss_reg
 
-    def train(self, loader):
+    def train(self, loader):        
         for ep in tqdm(range(self.epochs)):
-            epoch_loss = 0.0
-            for idx, data in enumerate(loader):
+            for idx, data in enumerate(tqdm(loader)):
                 self.optim.zero_grad()
                 x, y = data[0].to(self.device), data[1].to(self.device)
                 out = self.model(x)
                 loss = self.criterion(out, y)
-                epoch_loss += loss
                 loss += self._calc_reg()
                 loss.backward()
                 self.optim.step()
 
-                if not self.use_labels:
+                if not self.use_labels and idx %100==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances(x)
+                    self.test()
 
             # print(epoch_loss)
         if self.use_labels:

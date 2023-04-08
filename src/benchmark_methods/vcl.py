@@ -25,8 +25,10 @@ class ELBO(nn.Module):
 
 class VCL(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
-        super().__init__(model, train_loader, test_loader, **kwargs)
+        super().__init__(model, train_loader, test_loader,\
+                         file_name = f"VCL_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}", **kwargs)
         self.beta = 0.01
+
 
     def calculate_accuracy(self, outputs, targets):
         return np.mean(outputs.argmax(dim=-1).cpu().numpy() == targets.cpu().numpy())
@@ -37,13 +39,16 @@ class VCL(BaseCLMethod):
         offset = 0
         output_nodes = 10
 
-
-        train_size = len(loader.dataset)
+        try:
+            train_size = len(loader.dataset)
+        except AttributeError:
+            #Graduated dataloader has no direct dataset
+            train_size = loader.size
         elbo = ELBO(self.model, train_size, beta)
 
         self.model.train()
-        for epoch in tqdm(range(self.epochs)):
-            for data in loader:
+        for idx, data in enumerate(tqdm(loader)):
+            for epoch in range(self.epochs):
                 self.optim.zero_grad()
                 inputs, targets = data[0].to(self.device), data[1].to(self.device)
                 targets -= offset
@@ -56,10 +61,11 @@ class VCL(BaseCLMethod):
                 log_output = torch.logsumexp(outputs, dim=-1) - np.log(T)
                 kl = self.model.get_kl()
                 loss = elbo(log_output, targets, kl)
-                loss.backward()
+                loss.backward(retain_graph=True)
                 self.optim.step()
-                if not self.use_labels:
+                if not self.use_labels and idx %100==0:
                     self.model.update_prior()
+                    self.test()
 
 
     def test(self, T=10):
@@ -68,7 +74,6 @@ class VCL(BaseCLMethod):
         output_nodes = 10
         
         self.model.train()
-        accs = []
         for idx, task in enumerate(self.test_loader):
             task_accs = []
             for data in task:
@@ -83,34 +88,21 @@ class VCL(BaseCLMethod):
 
                 log_output = torch.logsumexp(outputs, dim=-1) - np.log(T)
                 task_accs.append(self.calculate_accuracy(log_output, targets))
-            accs.append(np.mean(task_accs))
-        return accs
+            self.test_acc_list[idx].append(np.mean(task_accs))
+
 
 
     def run(self, coreset_method=None, update_prior=True):
         num_tasks = len(self.test_loader)
-        coreset_list = []
-        all_accs = np.empty(shape=(num_tasks, num_tasks))
-        all_accs.fill(np.nan)
-        for task_id in range(num_tasks):
+
+        for task_id in range(len(self.train_loader)):
             trainloader = self.train_loader[task_id]
-            print("Starting Task", task_id + 1)
-            offset = 0            
             self.train(trainloader)
-            print("Done Training Task", task_id + 1)
 
-            # Attach a new coreset
-            if coreset_method:
-                coreset_method(coreset_list, trainloader, num_samples=200)
-
-                # Replay old tasks using coresets
-                for task in range(task_id + 1):
-                    print("Replaying Task", task + 1)
-                    self.corset_train(coreset_list[task], replay=True)
             # Evaluate on old tasks
-            all_accs[task_id] = self.test()
-            print(all_accs[task_id])
+            self.test()
             if update_prior and self.use_labels:
                 self.model.update_prior()
         #print(all_accs)
-        return all_accs
+        self.save(self.test_acc_list, self.root+self.file_name)
+        return self.test_acc_list

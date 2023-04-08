@@ -63,7 +63,9 @@ class SynapticIntelligence(BaseCLMethod):
             performance drop due to the required data transfer.
         """
 
-        super().__init__(model, train_loader, test_loader, **kwargs)
+        super().__init__(model, train_loader, test_loader, \
+                         file_name = f"SI_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}",**kwargs)
+        
 
         if excluded_parameters is None:
             excluded_parameters = []
@@ -90,8 +92,7 @@ class SynapticIntelligence(BaseCLMethod):
         if self.use_labels:
             self.before_training_exp()
         for ep in tqdm(range(self.epochs)):
-            epoch_loss = 0.0
-            for idx, data in enumerate(loader):
+            for idx, data in enumerate(tqdm(loader)):
                 if not self.use_labels:
                     self.before_training_exp()
                 self.before_training_iteration()
@@ -99,19 +100,18 @@ class SynapticIntelligence(BaseCLMethod):
                 x, y = data[0].to(self.device), data[1].to(self.device)
                 out = self.model(x)
                 loss = self.criterion(out, y)
-                epoch_loss += loss
                 loss += self.before_backward()
                 loss.backward()
                 self.optim.step()
                 self.after_training_iteration()
-                if not self.use_labels:
+                if not self.use_labels and idx %100==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self.after_training_exp()
+                    self.test()
 
-            # print(epoch_loss)
         if self.use_labels:
             # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
-            self.after_training_iteration()
+            self.after_training_exp()
 
     def before_training_exp(self, **kwargs):
         SynapticIntelligence.create_syn_data(
