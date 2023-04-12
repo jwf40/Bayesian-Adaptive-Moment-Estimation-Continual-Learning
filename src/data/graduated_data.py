@@ -78,7 +78,6 @@ class GraduatedDataLoader:
             self.update_draw_probs()                
             return return_data
         except StopIteration:
-            print(f"Finished Task {task_choice}")
             self.finished_tasks.append(task_choice)
             if len(self.finished_tasks) == len(self.task_li) or sum(self.draw_probs) < 1e-5:
                 raise StopIteration

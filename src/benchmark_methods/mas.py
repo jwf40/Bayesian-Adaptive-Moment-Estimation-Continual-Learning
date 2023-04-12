@@ -11,8 +11,8 @@ class MAS(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader,\
                          file_name = f"MAS_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}", **kwargs)
-        self.lambda_ = 1.0
-        self.alpha_ = 0.5
+        self.lambda_ = kwargs['mas_lambda']#1.0
+        self.alpha_ = kwargs['mas_alpha']#0.5
         self.importances = self.zerolike_params_dict()
         self.saved_params = self.zerolike_params_dict()
 
@@ -82,7 +82,7 @@ class MAS(BaseCLMethod):
                 loss.backward()
                 self.optim.step()
 
-                if not self.use_labels and idx %100==0:
+                if not self.use_labels and idx %10000==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances(x)
                     self.test()

@@ -3,7 +3,7 @@ import math
 from torch.optim.optimizer import Optimizer
 
 
-class Fast_BGD(Optimizer):
+class Badam(Optimizer):
     """Implements BGD.
     A simple usage of BGD would be:
     for samples, labels in batches:
@@ -134,10 +134,9 @@ class Fast_BGD(Optimizer):
 
             alpha = (math.sqrt(1-self.betas[1]**(self.n_steps))/(1-self.betas[0]**(self.n_steps)))*(mean_eta)
 
-            mom.copy_(self.betas[0]*mom + (1-self.betas[0])*e_grad)
-            mom_var.copy_(self.betas[1]*mom_var + (1-self.betas[1])*e_grad.pow(2))
-            update_val = torch.clamp(std, min=(self.std_init), max=None)
-            mean.add_(-alpha*std.pow(2)*(
+            mom.copy_(self.betas[0]*mom + (1-self.betas[0])*(std.pow(2)*e_grad))
+            mom_var.copy_(self.betas[1]*mom_var + (1-self.betas[1])*(std.pow(2)*e_grad.pow(2)))
+            mean.add_(-alpha*(
                 mom / (torch.sqrt(mom_var)+self.fast_eps)
             ) 
             )

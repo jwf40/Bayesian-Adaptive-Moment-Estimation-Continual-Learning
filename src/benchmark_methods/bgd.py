@@ -21,8 +21,8 @@ class BGD(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader, \
                          file_name = f"BGD_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}",**kwargs)
-        self.mean_eta=1.0
-        self.optim = bgd(model, mean_eta=self.mean_eta, std_init=0.06)
+        self.mean_eta=kwargs['bgd_mean_eta']
+        self.optim = bgd(model, mean_eta=self.mean_eta, std_init=kwargs['bgd_std'])
         
     def train(self, loader):
     
@@ -45,7 +45,7 @@ class BGD(BaseCLMethod):
                 # if b_idx%20==0:
                 #     running_accs.append(test(model,test_loaders,device))  
                 #     print(running_accs[-1])
-                if not self.use_labels and idx %100==0:
+                if not self.use_labels and idx %10000==0:
                     self.test()
 
 

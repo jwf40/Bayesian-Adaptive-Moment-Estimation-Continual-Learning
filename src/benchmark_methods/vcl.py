@@ -27,7 +27,7 @@ class VCL(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader,\
                          file_name = f"VCL_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}", **kwargs)
-        self.beta = 0.01
+        self.beta = kwargs['vcl_beta']#0.01
 
 
     def calculate_accuracy(self, outputs, targets):
@@ -63,7 +63,7 @@ class VCL(BaseCLMethod):
                 loss = elbo(log_output, targets, kl)
                 loss.backward(retain_graph=True)
                 self.optim.step()
-                if not self.use_labels and idx %100==0:
+                if not self.use_labels and idx %10000==0:
                     self.model.update_prior()
                     self.test()
 

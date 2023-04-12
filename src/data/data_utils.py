@@ -11,7 +11,14 @@ from .pmnist_data import PermutedMNIST
 
 def get_pmnist(batch_size=128, **kwargs):    
     n_tasks= 10 if not kwargs['n_tasks'] else kwargs['n_tasks']
-    kwargs = {'n_classes':10, 'hidden':200, 'mean_eta': 0.3, 'std': 0.06}
+    kwargs = {'n_classes':10, 'hidden':200,\
+               'badam_mean_eta': 0.3, 'badam_std': 0.06, \
+               'bgd_mean_eta': 1.0, 'bgd_std': 0.06, \
+                'mas_lambda': 1.2, 'mas_alpha': 0.4,\
+                'ewc_lambda': 1000, 'ewc_decay': 0.9,\
+                'si_lambda': 1.0,\
+                'tfcl_lambda': 0.4,\
+                'vcl_beta': 0.01}
     train_loader = []
     test_loader = []
 
@@ -118,7 +125,15 @@ def _displit(dataset, class_split: tuple[list,list], n_splits, flatten=True, nor
 def get_DIsplitmnist(batch_size=128, **kwargs):
     n_tasks= 5 if not kwargs['n_tasks'] else kwargs['n_tasks']
         
-    kwargs = {'n_classes':10,'hidden':200, 'mean_eta': 0.2, 'std': 0.01}
+    kwargs = {'n_classes':10, 'hidden':200, \
+              'badam_mean_eta': 0.2, 'badam_std': 0.01,\
+              'bgd_mean_eta': 1, 'bgd_std': 0.01,\
+              'ewc_lambda': 1000, 'ewc_decay': 0.9,\
+              'mas_lambda': 1.0, 'mas_alpha': 0.5,\
+              'si_lambda': 1.0,\
+              'tfcl_lambda': 0.5,\
+              'vcl_beta': 0.01
+                }
     target_1 = [0,2,4,6,8]
     target_2 = [1,3,5,7,9]
     train_dsets = _displit(MNIST(root="~/.torch/data/mnist", train=True, download=True),(target_1, target_2), n_classes=10, n_splits=n_tasks)
@@ -132,7 +147,15 @@ def get_DIsplitmnist(batch_size=128, **kwargs):
 
 def get_CIsplitmnist(batch_size=128, **kwargs):
     n_tasks= 5 if not kwargs['n_tasks'] else kwargs['n_tasks']
-    kwargs = {'n_classes':10, 'hidden':200, 'mean_eta': 0.2, 'std': 0.01}
+    kwargs = {'n_classes':10, 'hidden':200, \
+              'badam_mean_eta': 0.1, 'badam_std': 0.01,\
+              'bgd_mean_eta': 10, 'bgd_std': 0.01,\
+              'ewc_lambda': 100, 'ewc_decay': 0.7,\
+              'mas_lambda': 1.0, 'mas_alpha': 0.6,\
+              'si_lambda': 1.0,\
+              'tfcl_lambda': 0.4,\
+              'vcl_beta': 0.1
+                }
     train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
     test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
 

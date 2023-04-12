@@ -5,12 +5,12 @@ import os
 import numpy as np
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 path = 'results/test_acc/'
-exp = "CIsplit"
+exp = "CI"
 grad = "graduated_True"
 
 with open('results/exp_bounds/pmnist_graduated_task_boundaries','rb') as f:
     exp_params = np.array(pickle.load(f))
-avgs = {'VCL': 0.0, 'TFCL': 0.0, 'MAS': 0.0, 'ONLINE EWC': 0.0, 'BAdam': 0.0, 'BGD': 0.0, 'SI': 0.0}
+avgs = {'NEW': 0.0, 'VCL': 0.0, 'TFCL': 0.0, 'MAS': 0.0, 'ONLINE EWC': 0.0, 'BAdam': 0.0, 'BGD': 0.0, 'SI': 0.0}
 for fi in os.listdir(path):
     if exp in fi and grad in fi:            
         with open(path+fi, 'rb')as f:

@@ -14,15 +14,16 @@ import torchvision.transforms as transforms
 from tqdm import tqdm
 from data import PermutedMNIST
 from models.basic_mlp import BasicMLP
-from optimizers_lib import fastbgd, bgd
+from optimizers_lib import fastbgd, bgd, badam
 from .base import BaseCLMethod
 
 class Badam(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader, \
-                         file_name = f"BAdam_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}_meaneta_{kwargs['mean_eta']}_std_{kwargs['std']}",**kwargs)
-        self.mean_eta=kwargs['mean_eta']#0.3
-        self.optim = fastbgd(model, mean_eta=self.mean_eta, std_init=kwargs['std'])#bgd(model, mean_eta=mean_eta, std_init=0.06)0.06
+                         file_name = f"BAdam_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}",**kwargs)
+        #raise AssertionError
+        self.mean_eta=kwargs['badam_mean_eta']#kwargs['badam_mean_eta']#0.3
+        self.optim = badam(model, mean_eta=self.mean_eta, std_init=kwargs['badam_std'])#badam bgd(model, mean_eta=mean_eta, std_init=0.06)0.06
         
     def train(self, loader):
         for epoch in tqdm(range(self.epochs)):
@@ -41,5 +42,5 @@ class Badam(BaseCLMethod):
                     self.optim.aggregate_grads(len(y))
                 mcloss/=self.optim.mc_iters
                 self.optim.step()
-                if not self.use_labels and idx %100==0:
+                if not self.use_labels and idx %10000==0:
                     self.test()

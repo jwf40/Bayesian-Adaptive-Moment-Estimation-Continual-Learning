@@ -66,6 +66,7 @@ def badam_main(**kwargs):
 
 def bgd_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)    
+    
     model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
     method = BGD(model, train_loader, test_loader, **kwargs)
     method.run()

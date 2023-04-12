@@ -18,7 +18,7 @@ class Task_free_continual_learning(BaseCLMethod):
         self.loss_window_length=5
         self.loss_window_mean_threshold=0.2
         self.loss_window_variance_threshold=0.1
-        self.MAS_weight=0.5
+        self.MAS_weight=kwargs['tfcl_lambda']#0.5
         self.recent_buffer_size=20
         self.hard_buffer_size=30
         
@@ -172,7 +172,7 @@ class Task_free_continual_learning(BaseCLMethod):
                                         # empty recent buffer after training couple of times
                     recent_buffer = []
                 #evaluate on test set
-                if s % 100 == 0:
+                if s % 10000 == 0:
                     for i in range(len(self.test_loader)):
                         t_acc = 0.0
                         for batch in self.test_loader[i]:

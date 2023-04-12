@@ -36,14 +36,14 @@ if __name__=='__main__':
     # random.seed(12345)
     # np.random.seed(12345)
     # torch.manual_seed(12345)
-    exps = ['DIsplitmnist','pmnist']
-    algs = ['badam','bgd','ewconline','tfcl','mas','vcl','synaptic_intelligence']#'ewc',
-
+    exps = ['CIsplitmnist', 'DIsplitmnist', 'pmnist']
+    algs = ['badam','bgd','ewconline','tfcl','mas','synaptic_intelligence', 'vcl']#'ewc',
     for exp in exps:
         for alg in algs:
             for run in range(10):
+                n_task = 10 if exp == 'pmnist' else 5                        
                 print(f"Starting training of {alg} on  {exp}")
-                args = {'run': run,'alg': alg, 'exp': exp, 'graduated': True, 'k': 12,'epochs': 1, 'batch_size': 128, 'n_tasks': 5, 'device': 'cuda', 'labels': False, 'root': 'results/test_acc/'}
+                args = {'run': run,'alg': alg, 'exp': exp, 'graduated': True, 'k': 12,'epochs': 1, 'batch_size': 1, 'n_tasks': n_task, 'device': 'cuda', 'labels': False, 'root': 'results/test_acc/'}
                 getattr(experiments, f"{args['alg']}_main")(**args)
     
     # for exp in exps:

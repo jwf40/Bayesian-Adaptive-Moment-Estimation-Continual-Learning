@@ -13,8 +13,8 @@ class EWCOnline(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader, \
                          file_name = f"ONLINE EWC_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}",**kwargs)
-        self.lambda_ = 1000
-        self.decay_factor = 0.9
+        self.lambda_ = kwargs['ewc_lambda']#1000
+        self.decay_factor = kwargs['ewc_decay']#0.9
         self.importances = defaultdict(dict)
         self.saved_params = defaultdict(dict)
 
@@ -95,7 +95,7 @@ class EWCOnline(BaseCLMethod):
                 loss.backward()
                 self.optim.step()
 
-                if not self.use_labels and idx %100==0:
+                if not self.use_labels and idx %10000==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances((x, y))
                     self.test()
