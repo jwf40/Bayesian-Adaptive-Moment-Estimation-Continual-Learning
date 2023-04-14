@@ -172,7 +172,7 @@ class Task_free_continual_learning(BaseCLMethod):
                                         # empty recent buffer after training couple of times
                     recent_buffer = []
                 #evaluate on test set
-                if s % 10000 == 0:
+                if s % 5000 == 0:
                     for i in range(len(self.test_loader)):
                         t_acc = 0.0
                         for batch in self.test_loader[i]:

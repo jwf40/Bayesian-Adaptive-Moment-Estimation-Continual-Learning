@@ -63,7 +63,7 @@ class VCL(BaseCLMethod):
                 loss = elbo(log_output, targets, kl)
                 loss.backward(retain_graph=True)
                 self.optim.step()
-                if not self.use_labels and idx %10000==0:
+                if not self.use_labels and idx %5000==0:
                     self.model.update_prior()
                     self.test()
 

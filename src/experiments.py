@@ -7,6 +7,7 @@ from tqdm import tqdm
 from optimizers_lib import fastbgd, bgd# Get requested dataset 
 import data
 from models.basic_mlp import BasicMLP
+from models.cnn import CNN
 from models.vcl_model import PermutedModel
 from benchmark_methods import *
 
@@ -23,50 +24,58 @@ def _get_data(**kwargs):
 
 def mas_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
     method = MAS(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def ewc_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
     method = EWC(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def ewconline_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
     method = EWCOnline(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def synaptic_intelligence_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
     method = SynapticIntelligence(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def vcl_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
     model = PermutedModel(n_classes=kwargs['n_classes']).to(kwargs["device"])
+    if 'cifar' in kwargs['exp']: raise NotImplementedError
     method = VCL(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def tfcl_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
-    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
     method = Task_free_continual_learning(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def badam_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)
     assert isinstance(train_loader, list)
-    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
     method = Badam(model, train_loader, test_loader, **kwargs)
+    method.run()
+
+def bufferbadam_main(**kwargs):
+    train_loader, test_loader, kwargs = _get_data(**kwargs)
+    assert isinstance(train_loader, list)
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
+    method = BufferBadam(model, train_loader, test_loader, **kwargs)
     method.run()
 
 def bgd_main(**kwargs):
     train_loader, test_loader, kwargs = _get_data(**kwargs)    
     
-    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"])
+    model = BasicMLP(hidden=kwargs['hidden'],n_classes=kwargs['n_classes']).to(kwargs["device"]) if 'cifar' not in kwargs['exp'] else CNN().to(kwargs['device'])
     method = BGD(model, train_loader, test_loader, **kwargs)
     method.run()

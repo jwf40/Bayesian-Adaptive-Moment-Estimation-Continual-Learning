@@ -20,10 +20,10 @@ from .base import BaseCLMethod
 class Badam(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader, \
-                         file_name = f"BAdam_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}",**kwargs)
+                         file_name = f"BAdam_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}_eta_{kwargs['new_eta']}_std_{kwargs['new_std']}",**kwargs)
         #raise AssertionError
-        self.mean_eta=kwargs['badam_mean_eta']#kwargs['badam_mean_eta']#0.3
-        self.optim = badam(model, mean_eta=self.mean_eta, std_init=kwargs['badam_std'])#badam bgd(model, mean_eta=mean_eta, std_init=0.06)0.06
+        self.mean_eta=kwargs['new_eta']#kwargs['badam_mean_eta']#0.3
+        self.optim = badam(model, mean_eta=self.mean_eta, std_init=kwargs['new_std'])#badam bgd(model, mean_eta=mean_eta, std_init=0.06)0.06
         
     def train(self, loader):
         for epoch in tqdm(range(self.epochs)):
@@ -42,5 +42,5 @@ class Badam(BaseCLMethod):
                     self.optim.aggregate_grads(len(y))
                 mcloss/=self.optim.mc_iters
                 self.optim.step()
-                if not self.use_labels and idx %10000==0:
+                if not self.use_labels and idx %5000==0:
                     self.test()

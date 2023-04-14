@@ -45,7 +45,7 @@ class BGD(BaseCLMethod):
                 # if b_idx%20==0:
                 #     running_accs.append(test(model,test_loaders,device))  
                 #     print(running_accs[-1])
-                if not self.use_labels and idx %10000==0:
+                if not self.use_labels and idx %5000==0:
                     self.test()
 
 

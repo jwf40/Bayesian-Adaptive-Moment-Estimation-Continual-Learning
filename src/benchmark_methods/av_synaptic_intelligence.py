@@ -63,9 +63,9 @@ class SynapticIntelligence(BaseCLMethod):
         """
 
         super().__init__(model, train_loader, test_loader, \
-                         file_name = f"SI_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}_lambda_{kwargs['lambda']}",**kwargs)
+                         file_name = f"SI_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}_lambda_{kwargs['si_lambda']}",**kwargs)
         
-        si_lambda: Union[float, Sequence[float]] = kwargs['lambda']#1.0,
+        si_lambda: Union[float, Sequence[float]] = kwargs['si_lambda']#1.0,
         if excluded_parameters is None:
             excluded_parameters = []
         self.si_lambda = (
@@ -103,7 +103,7 @@ class SynapticIntelligence(BaseCLMethod):
                 loss.backward()
                 self.optim.step()
                 self.after_training_iteration()
-                if not self.use_labels and idx %10000==0:
+                if not self.use_labels and idx %5000==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self.after_training_exp()
                     self.test()

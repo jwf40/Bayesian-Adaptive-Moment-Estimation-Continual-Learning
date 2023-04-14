@@ -82,7 +82,7 @@ class MAS(BaseCLMethod):
                 loss.backward()
                 self.optim.step()
 
-                if not self.use_labels and idx %10000==0:
+                if not self.use_labels and idx %5000==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances(x)
                     self.test()

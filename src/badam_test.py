@@ -4,8 +4,8 @@ import pickle
 import os
 import numpy as np
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-path = 'results/test_acc/'
-exp = "DI"
+path = 'results/test_acc/batch_1/'
+exp = "CIcifar"
 grad = "graduated_True"
 
 with open('results/exp_bounds/pmnist_graduated_task_boundaries','rb') as f:
@@ -27,5 +27,5 @@ for fi in os.listdir(path):
             else:
                 avgs[name] = np.mean(fins)
 for each in avgs.keys():
-    avgs[each] /= 10
+    avgs[each] /= 1
     print(each,': ', avgs[each])

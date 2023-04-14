@@ -36,15 +36,19 @@ if __name__=='__main__':
     # random.seed(12345)
     # np.random.seed(12345)
     # torch.manual_seed(12345)
-    exps = ['CIsplitmnist', 'DIsplitmnist', 'pmnist']
-    algs = ['badam','bgd','ewconline','tfcl','mas','synaptic_intelligence', 'vcl']#'ewc',
+    exps = ['CIcifar','DIcifar']#,'','CIsplitmnist,''pmnist',, ,'pmnist', 'CIsplitmnist','DIsplitmnist','pmnist']
+    algs = ['bufferbadam']#'ewc','badam','bgd','ewconline','tfcl','mas','synaptic_intelligence', vcl
+    etas = [0.1]
+    stds = [0.01,0.02,0.03,0.04,0.05,0.06]
     for exp in exps:
         for alg in algs:
-            for run in range(10):
-                n_task = 10 if exp == 'pmnist' else 5                        
-                print(f"Starting training of {alg} on  {exp}")
-                args = {'run': run,'alg': alg, 'exp': exp, 'graduated': True, 'k': 12,'epochs': 1, 'batch_size': 1, 'n_tasks': n_task, 'device': 'cuda', 'labels': False, 'root': 'results/test_acc/'}
-                getattr(experiments, f"{args['alg']}_main")(**args)
+            for std in stds:
+                for eta in etas:                
+                    for run in range(1):
+                        n_task = 10 if exp == 'pmnist' else 5                        
+                        print(f"Starting training of {alg} on  {exp}")
+                        args = {'new_eta': eta, 'new_std': std,'run': run,'alg': alg, 'exp': exp, 'graduated': True, 'k': 12,'epochs': 1, 'batch_size': 1, 'n_tasks': n_task, 'device': 'cuda', 'labels': False, 'root': 'results/test_acc/batch_1/'}
+                        getattr(experiments, f"{args['alg']}_main")(**args)
     
     # for exp in exps:
     #     for alg in algs:
