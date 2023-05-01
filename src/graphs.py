@@ -3,51 +3,78 @@ import matplotlib.pyplot as plt
 import pickle 
 import os
 import numpy as np
+from math import ceil
+
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-path = 'results/test_acc/batch_1/'
-exp = "CI"
+path = 'results/test_acc/Final_Shuffle_NoLabels/'
+exp = "pmnist"
 grad = "graduated_True"
 
-with open('results/exp_bounds/pmnist_graduated_task_boundaries','rb') as f:
+
+# with open('results/test_acc/Final_Shuffle_NoLabels/GRADUATED_DRAW_PROBS_shuffle_True_run_0', 'rb') as f:
+#     draw_probs = pickle.load(f)
+#     for i, li in enumerate(zip(*draw_probs)):
+        
+#         plt.plot(li, label=str(i))
+#     plt.show()
+
+n_tasks = 5
+test_every=400 if exp=='pmnist' else 40
+
+with open(f'results/exp_bounds/{exp}_graduated_task_boundaries_shuffle_True_run_0','rb') as f:
     exp_params = np.array(pickle.load(f))
-avgs = {'VCL': 0.0, 'TFCL': 0.0, 'MAS': 0.0, 'ONLINE EWC': 0.0, 'BAdam': 0.0, 'BGD': 0.0, 'SI': 0.0}
+    print(exp_params)
+avgs = {'VCL': 0.0, 'TFCL': 0.0, 'MAS': 0.0, 'ONLINE EWC': 0.0, 'BufferBAdam': 0.0, 'BGD': 0.0, 'SI': 0.0}
+running_avgs = {'VCL': [], 'TFCL': [], 'MAS': [], 'ONLINE EWC': [], 'BufferBAdam': [], 'BGD': [], 'SI': []}
 for fi in os.listdir(path):
+    print(fi)
     if exp in fi and grad in fi:            
         with open(path+fi, 'rb')as f:
             dat = pickle.load(f)
-            avg_score = []
+            print('dat',dat)            
+            avg_score = np.zeros(len(dat[0]))
             alg = fi.split('_')[0]
-            print(alg)
-            if 'VCL' in fi:
-                fins = [lis[-1] for lis in dat]
-            elif 'TFCL' in fi:
-                fins = [lis[-1] for lis in dat.values()]
-            else:
-                fins = [lis[-1].detach().cpu().item() for lis in dat]
-            print(np.mean(fins))
+            #print(alg)
+            fins = [lis[-1] for lis in dat]
             avgs[alg]+= np.mean(fins)
-            continue
-            for idx in range(0, len(dat[0]), 100):
-                ele_score = 0
+
+            for i in range(len(dat[0])):
+                #there are 479 samples per task
                 try:
-                    n_tasks = 1+max(np.where((idx*100) < exp_params)[0])
+                    n_tasks_to_date = min(np.where(exp_params>=(i*test_every))[0])
                 except:
-                    n_tasks = len(dat)
-                for task in range(n_tasks):
-                    ele_score+=(dat[task][idx]).detach().cpu().item()
-                avg_score.append(ele_score/n_tasks)
-            label = fi.split('_')[0]
-            plt.plot(range(0, 100*len(dat[0]), 100), avg_score, label=label)
+                    n_tasks_to_date = n_tasks
+                avg_score[i] = np.mean([lis[i] for lis in dat])#[:1+n_tasks_to_date]
+                # for task_id, task in enumerate(dat):    
+                #     if task_id<=n_tasks_to_date:
+                #         avg_score[i] += task[i]
+                # avg_score[i] /= (n_tasks_to_date+1)
+
+            running_avgs[alg].append(avg_score)
+        
+print(running_avgs)
+for key in sorted(running_avgs.keys()):
+    if len(running_avgs[key]) > 0:
+        err = np.std(running_avgs[key], axis=0)
+        mean = np.mean(running_avgs[key], axis=0)
+        #plt.errorbar(range(0, 40*len(mean), 40), mean, yerr=err, label=key)
+        plt.plot(range(0, test_every*len(mean), test_every), mean, label=key, linewidth=2)
+
+        
 
 for each in avgs.keys():
     avgs[each] /= 10
 print(avgs)
 
-plt.vlines(x=exp_params, ymin=0.1, ymax=1.0, colors='black', linestyles='dashed',label='New Task Introduced', alpha=0.4)
-plt.title(f'Model Average Accuracy Across All Tasks')
-plt.xlabel('Task Introduction')
+
+vlines = [0]
+vlines.extend(exp_params[:-1])
+print(vlines)
+plt.vlines(x=vlines, ymin=0.1, ymax=1.0, colors='black', linestyles='dashed',label='New Task Introduced', alpha=0.4)
+plt.title(f'Average Accuracy Across All Tasks For Domain-Incremental PMNIST')
+plt.xlabel('Batch')
 plt.ylabel('Accuracy')
-plt.legend()
+plt.legend(loc='upper left')
 plt.show()
 print("REMEMBER TO CHECK BATCH PATH")
 

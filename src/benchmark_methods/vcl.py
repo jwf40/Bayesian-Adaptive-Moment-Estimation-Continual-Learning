@@ -50,20 +50,20 @@ class VCL(BaseCLMethod):
         for idx, data in enumerate(tqdm(loader)):
             for epoch in range(self.epochs):
                 self.optim.zero_grad()
-                inputs, targets = data[0].to(self.device), data[1].to(self.device)
-                targets -= offset
-                outputs = torch.zeros(inputs.shape[0], output_nodes, T, device=self.device)
+                _x, _y = data[0].to(self.device), data[1].to(self.device)
+                _y -= offset
+                outputs = torch.zeros(_x.shape[0], output_nodes, T, device=self.device)
 
                 for i in range(T):
-                    net_out = self.model(inputs)
+                    net_out = self.model(_x)
                     outputs[:, :, i] = F.log_softmax(net_out, dim=-1)
 
                 log_output = torch.logsumexp(outputs, dim=-1) - np.log(T)
                 kl = self.model.get_kl()
-                loss = elbo(log_output, targets, kl)
+                loss = elbo(log_output, _y, kl)
                 loss.backward(retain_graph=True)
                 self.optim.step()
-                if not self.use_labels and idx %5000==0:
+                if not self.use_labels and idx %self.test_every==0:
                     self.model.update_prior()
                     self.test()
 

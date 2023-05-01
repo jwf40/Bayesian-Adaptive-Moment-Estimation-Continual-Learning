@@ -32,23 +32,38 @@ from optimizers_lib import fastbgd, bgd
 # args = vars(parser.parse_args())
 # print(args)
 
-if __name__=='__main__':
-    # random.seed(12345)
-    # np.random.seed(12345)
-    # torch.manual_seed(12345)
-    exps = ['CIcifar','DIcifar']#,'','CIsplitmnist,''pmnist',, ,'pmnist', 'CIsplitmnist','DIsplitmnist','pmnist']
-    algs = ['bufferbadam']#'ewc','badam','bgd','ewconline','tfcl','mas','synaptic_intelligence', vcl
-    etas = [0.1]
-    stds = [0.01,0.02,0.03,0.04,0.05,0.06]
+if __name__=='__main__':    
+    exps = ['CIsplitmnist']#,,, ,'pmnist', 'CIcifar','DIcifar',,'pmnist','DIsplitmnist',]
+    algs = ['bgd']#, #,'ewconline','tfcl','vcl','mas','synaptic_intelligence',  ,'bufferbadam',,'bgd','ewconline','tfcl','mas','synaptic_intelligence', 'vcl''synaptic_intelligence']#'ewc',
     for exp in exps:
         for alg in algs:
-            for std in stds:
-                for eta in etas:                
-                    for run in range(1):
-                        n_task = 10 if exp == 'pmnist' else 5                        
-                        print(f"Starting training of {alg} on  {exp}")
-                        args = {'new_eta': eta, 'new_std': std,'run': run,'alg': alg, 'exp': exp, 'graduated': True, 'k': 12,'epochs': 1, 'batch_size': 1, 'n_tasks': n_task, 'device': 'cuda', 'labels': False, 'root': 'results/test_acc/batch_1/'}
-                        getattr(experiments, f"{args['alg']}_main")(**args)
+            for run in range(10):                                   
+                random.seed(run)
+                np.random.seed(run)
+                torch.manual_seed(run)
+                test_every = 40 if 'pmnist' not in exp else 400
+                n_task = 10 if exp == 'pmnist' else 5                        
+                print(f"Starting training of {alg} on  {exp}")
+                args = {'test_every': test_every, 'shuffle': True, 'buffer_len':1,'run': run,'alg': alg, 'exp': exp, 'graduated': False, 'k': 2,'epochs': 20, 'batch_size': 128, 'n_tasks': n_task, 'device': 'cuda', 'labels': True, 'root': 'results/test_acc/Labelled_Final/'}#
+                getattr(experiments, f"{args['alg']}_main")(**args)
+    
+    # exps = ['CIsplitmnist']#,,, ,'pmnist', 'CIcifar','DIcifar',,'pmnist','DIsplitmnist',]
+    # algs = ['bgd']#, #,'ewconline','tfcl','vcl','mas','synaptic_intelligence',  ,'bufferbadam',,'bgd','ewconline','tfcl','mas','synaptic_intelligence', 'vcl''synaptic_intelligence']#'ewc',
+    # stds = [0.001, 0.002, 0.003, 0.004,0.005,0.006]
+    # etas = [0.5, 1.0, 5]
+    # for exp in exps:
+    #     for alg in algs:
+    #         for std in stds:
+    #             for eta in etas:
+    #                 for run in range(10):                
+    #                     random.seed(run)
+    #                     np.random.seed(run)
+    #                     torch.manual_seed(run)
+    #                     test_every = 40 if 'pmnist' not in exp else 400
+    #                     n_task = 10 if exp == 'pmnist' else 5                        
+    #                     print(f"Starting training of {alg} on  {exp}")
+    #                     args = {'new_std': std, 'new_eta': eta,'test_every': test_every, 'shuffle': True, 'buffer_len':1,'run': run,'alg': alg, 'exp': exp, 'graduated': False, 'k': 2,'epochs': 20, 'batch_size': 256, 'n_tasks': n_task, 'device': 'cuda', 'labels': True, 'root': 'results/test_acc/Labelled_Final/'}#
+    #                     getattr(experiments, f"{args['alg']}_main")(**args)
     
     # for exp in exps:
     #     for alg in algs:

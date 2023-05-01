@@ -4,6 +4,7 @@ import numpy.random as rn
 import torch
 from .base import BaseCLMethod
 from tqdm import tqdm
+import numbers
 class Task_free_continual_learning(BaseCLMethod):
 
     def __init__(self,model,train_loader,test_loader,**kwargs):
@@ -14,12 +15,12 @@ class Task_free_continual_learning(BaseCLMethod):
         # Save settings
         self.verbose=True
         self.ntasks=len(train_loader)
-        self.gradient_steps=5
+        self.gradient_steps=1#kwargs['epochs']
         self.loss_window_length=5
         self.loss_window_mean_threshold=0.2
         self.loss_window_variance_threshold=0.1
         self.MAS_weight=kwargs['tfcl_lambda']#0.5
-        self.recent_buffer_size=20
+        self.recent_buffer_size=20#kwargs['buffer_len']
         self.hard_buffer_size=30
         
         
@@ -89,7 +90,11 @@ class Task_free_continual_learning(BaseCLMethod):
                         # add MAS regularization to the training objective
                         if continual_learning and len(star_variables)!=0 and len(omegas)!=0:
                             for pindex, p in enumerate(self.model.parameters()):
-                                total_loss+=self.MAS_weight/2.*torch.sum(torch.from_numpy(omegas[pindex]).type(torch.float32)*(p-star_variables[pindex])**2)
+                                #if batchsize = 1
+                                if isinstance(omegas[pindex], numbers.Number):
+                                    total_loss+=self.MAS_weight/2.*torch.sum(float(omegas[pindex])*(p-star_variables[pindex])**2)
+                                else:
+                                    total_loss+=self.MAS_weight/2.*torch.sum(torch.from_numpy(omegas[pindex]).type(torch.float32)*(p-star_variables[pindex])**2)
                         
                         losses.append(total_loss)
                         torch.sum(total_loss).backward()
@@ -172,20 +177,21 @@ class Task_free_continual_learning(BaseCLMethod):
                                         # empty recent buffer after training couple of times
                     recent_buffer = []
                 #evaluate on test set
-                if s % 5000 == 0:
-                    for i in range(len(self.test_loader)):
-                        t_acc = 0.0
-                        for batch in self.test_loader[i]:
-                            xtest, ytest = batch[0].to(self.device), batch[1].to(self.device)
-                            y_pred=self.model(xtest).type(torch.float32)
-                            #loss=loss_fn(y_pred,y_sup).detach().numpy()
-                            t_acc+=(torch.sum(torch.argmax(y_pred,axis=1)==ytest)/len(ytest)).item()
-                            #print(np.argmax(y_pred.detach().cpu().numpy()[:10], axis=1),ytest[:10], torch.sum(torch.argmax(y_pred,axis=1)==ytest), len(ytest))
-                        t_acc /= len(self.test_loader[i])
-                        test_accs[i].append(t_acc)
-                        msg+=' test[{0}]: {1:0.3f}'.format(i,t_acc)
-                if self.verbose:
-                    print(msg)
+                if s%self.test_every==0:
+                    self.test()
+                    # for i in range(len(self.test_loader)):
+                #         t_acc = 0.0
+                #         for batch in self.test_loader[i]:
+                #             xtest, ytest = batch[0].to(self.device), batch[1].to(self.device)
+                #             y_pred=self.model(xtest).type(torch.float32)
+                #             #loss=loss_fn(y_pred,y_sup).detach().numpy()
+                #             t_acc+=(torch.sum(torch.argmax(y_pred,axis=1)==ytest)/len(ytest)).item()
+                #             #print(np.argmax(y_pred.detach().cpu().numpy()[:10], axis=1),ytest[:10], torch.sum(torch.argmax(y_pred,axis=1)==ytest), len(ytest))
+                #         t_acc /= len(self.test_loader[i])
+                #         test_accs[i].append(t_acc)
+                #         msg+=' test[{0}]: {1:0.3f}'.format(i,t_acc)
+                # if self.verbose:
+                #     print(msg)
 
             
         if False and use_hard_buffer:
@@ -207,7 +213,8 @@ class Task_free_continual_learning(BaseCLMethod):
                 plt.scatter([p[0] for p in negative_points],[p[1] for p in negative_points],color='red')
             plt.axis('off')
             plt.show()
-        
+
+        self.test()        
         print("duration: {0}minutes, count updates: {1}".format((time.time()-stime)/60., count_updates))
-        self.save(test_accs, self.root+self.file_name)
+        self.save(self.test_acc_list, self.root+self.file_name)
         return losses, loss_window_means, update_tags, loss_window_variances, test_accs

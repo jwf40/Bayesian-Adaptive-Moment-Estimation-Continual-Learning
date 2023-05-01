@@ -88,6 +88,7 @@ class SynapticIntelligence(BaseCLMethod):
         }
 
     def train(self, loader):
+        xbuffer, ybuffer = [],[]
         if self.use_labels:
             self.before_training_exp()
         for ep in tqdm(range(self.epochs)):
@@ -97,13 +98,19 @@ class SynapticIntelligence(BaseCLMethod):
                 self.before_training_iteration()
                 self.optim.zero_grad()
                 x, y = data[0].to(self.device), data[1].to(self.device)
-                out = self.model(x)
-                loss = self.criterion(out, y)
-                loss += self.before_backward()
-                loss.backward()
-                self.optim.step()
-                self.after_training_iteration()
-                if not self.use_labels and idx %5000==0:
+                xbuffer.append(x)
+                ybuffer.append(y)
+                if len(ybuffer) >= self.buffer_len: 
+                    _x = torch.stack(xbuffer).squeeze(1) if self.buffer_len > 1 else x
+                    _y = torch.stack(ybuffer).squeeze(1) if self.buffer_len > 1 else y
+                    out = self.model(_x)
+                    loss = self.criterion(out, _y)
+                    loss += self.before_backward()
+                    loss.backward()
+                    self.optim.step()
+                    self.after_training_iteration()
+                    xbuffer, ybuffer = [], []
+                if not self.use_labels and idx %self.test_every==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self.after_training_exp()
                     self.test()

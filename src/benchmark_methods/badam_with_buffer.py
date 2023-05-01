@@ -20,13 +20,13 @@ from .base import BaseCLMethod
 class BufferBadam(BaseCLMethod):
     def __init__(self, model, train_loader, test_loader, **kwargs):
         super().__init__(model, train_loader, test_loader, \
-                         file_name = f"BufferBAdam_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}_eta_{kwargs['new_eta']}_std_{kwargs['new_std']}",**kwargs)
+                         file_name = f"BufferBAdam_ds_{kwargs['exp']}_graduated_{kwargs['graduated']}",**kwargs)
         #raise AssertionError
-        self.mean_eta=kwargs['new_eta']#0.3
-        self.optim = badam(model, mean_eta=self.mean_eta, std_init=kwargs['new_std'])#badam bgd(model, mean_eta=mean_eta, std_init=0.06)0.06
+        self.mean_eta=kwargs['badam_mean_eta']#kwargs['badam_mean_eta']#0.3
+        self.optim = badam(model, mean_eta=self.mean_eta, std_init=kwargs['badam_std'])#''badam_std bgd(model, mean_eta=mean_eta, std_init=0.06)0.06
         
     def train(self, loader):
-        buffer_len = 128
+
         xbuffer = []
         ybuffer = []
         for epoch in tqdm(range(self.epochs)):
@@ -35,9 +35,9 @@ class BufferBadam(BaseCLMethod):
                 x, y = batch[0].to(self.device), batch[1].to(self.device)
                 xbuffer.append(x)
                 ybuffer.append(y)
-                if len(ybuffer) >= buffer_len: 
-                    _x = torch.stack(xbuffer).squeeze(1)
-                    _y = torch.stack(ybuffer).squeeze(1)   
+                if len(ybuffer) >= self.buffer_len: 
+                    _x = torch.stack(xbuffer).squeeze(1) if self.buffer_len > 1 else x
+                    _y = torch.stack(ybuffer).squeeze(1) if self.buffer_len > 1 else y
                     mcloss = 0                
                     for mc_iter in range(self.optim.mc_iters):
                         self.optim.randomize_weights()
@@ -53,6 +53,6 @@ class BufferBadam(BaseCLMethod):
                     #empty buffer
                     xbuffer = []
                     ybuffer = []
-                if not self.use_labels and idx %5000==0:
+                if not self.use_labels and idx %self.test_every==0:
                     self.test()
                 

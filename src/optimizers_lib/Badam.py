@@ -132,10 +132,10 @@ class Badam(Optimizer):
 
             
 
-            alpha = (math.sqrt(1-self.betas[1]**(self.n_steps))/(1-self.betas[0]**(self.n_steps)))*(mean_eta)
+            alpha = (math.sqrt(1-self.betas[1]**(self.n_steps))/(1-self.betas[0]**(self.n_steps)))*(mean_eta*std.pow(2))
 
-            mom.copy_(self.betas[0]*mom + (1-self.betas[0])*(std.pow(2)*e_grad))
-            mom_var.copy_(self.betas[1]*mom_var + (1-self.betas[1])*(std*e_grad).pow(2))
+            mom.copy_(self.betas[0]*mom + (1-self.betas[0])*(e_grad))
+            mom_var.copy_(self.betas[1]*mom_var + (1-self.betas[1])*(e_grad).pow(2))
             mean.add_(-alpha*(
                 mom / (torch.sqrt(mom_var)+self.fast_eps)
             ) 

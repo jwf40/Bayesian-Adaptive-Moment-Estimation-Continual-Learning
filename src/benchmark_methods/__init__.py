@@ -10,3 +10,4 @@ from .tfcl import *
 from .badam import *
 from .bgd import *
 from .badam_with_buffer import *
+from .naive import *

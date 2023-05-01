@@ -8,17 +8,18 @@ from torchvision.transforms import Compose, Normalize
 from torchvision.transforms.functional import pil_to_tensor
 from models.basic_mlp import BasicMLP
 from .pmnist_data import PermutedMNIST
+import numpy as np
 
 def get_pmnist(batch_size=128, **kwargs):    
     n_tasks= 10 if not kwargs['n_tasks'] else kwargs['n_tasks']
-    kwargs = {'n_classes':10, 'hidden':200,\
+    kwargs.update({'n_classes':10, 'hidden':200,\
                'badam_mean_eta': 0.3, 'badam_std': 0.06, \
                'bgd_mean_eta': 1.0, 'bgd_std': 0.06, \
                 'mas_lambda': 1.2, 'mas_alpha': 0.4,\
                 'ewc_lambda': 1000, 'ewc_decay': 0.9,\
                 'si_lambda': 1.0,\
                 'tfcl_lambda': 0.4,\
-                'vcl_beta': 0.01}
+                'vcl_beta': 0.01})
     train_loader = []
     test_loader = []
 
@@ -29,7 +30,7 @@ def get_pmnist(batch_size=128, **kwargs):
     for i in range(n_tasks):
         random.shuffle(idx)
         train_loader.append(DataLoader(PermutedMNIST(train=True, permute_idx=idx, id=i, transform=transforms),\
-                                        batch_size=batch_size,num_workers=1, shuffle=True))
+                                        batch_size=batch_size, shuffle=kwargs['shuffle']))
         test_loader.append(DataLoader(PermutedMNIST(train=False, permute_idx=idx,  id=i,  transform=transforms),\
                                       batch_size=batch_size))
         
@@ -118,6 +119,15 @@ def _displit(dataset, class_split: tuple[list,list], n_splits, flatten=True, nor
                 
             except:
                 sub_li.append(torch.stack(tensor_dict[key][idx]))
+        # print(type(sub_li),type(sub_li[0]),type(sub_li[1]))
+        # if not kwargs['shuffle']:   
+        #     print(sub_li[0])         
+        #     sub_li[0] = [x for _, x in sorted(zip(sub_li[1], sub_li[0]), key=lambda pair: pair[0])]
+        #     sub_li[1] = sorted(sub_li[1])
+        #     print(sub_li[0])
+        # sub_li[1] = torch.tensor(sub_li[1])
+        # sub_li[0] = torch.tensor(sub_li[0])
+        # print(type(sub_li),type(sub_li[0]),type(sub_li[1]))
         #Convert list to tensor dataset, unroll list of tensors as args
         return_li.append(TensorDataset(*sub_li))    
     return return_li
@@ -125,42 +135,48 @@ def _displit(dataset, class_split: tuple[list,list], n_splits, flatten=True, nor
 def get_DIsplitmnist(batch_size=128, **kwargs):
     n_tasks= 5 if not kwargs['n_tasks'] else kwargs['n_tasks']
         
-    kwargs = {'n_classes':10, 'hidden':200, \
-              'badam_mean_eta': 0.2, 'badam_std': 0.01,\
-              'bgd_mean_eta': 1, 'bgd_std': 0.01,\
+    kwargs.update({'n_classes':10, 'hidden':200, \
+              'badam_mean_eta': 0.3, 'badam_std': 0.01,\
+              'bgd_mean_eta': 1.0, 'bgd_std': 0.017,\
               'ewc_lambda': 1000, 'ewc_decay': 0.9,\
               'mas_lambda': 1.0, 'mas_alpha': 0.5,\
               'si_lambda': 1.0,\
               'tfcl_lambda': 0.5,\
               'vcl_beta': 0.01
-                }
+                })
     target_1 = [0,2,4,6,8]
     target_2 = [1,3,5,7,9]
-    train_dsets = _displit(MNIST(root="~/.torch/data/mnist", train=True, download=True),(target_1, target_2), n_classes=10, n_splits=n_tasks)
-    test_dsets = _displit(MNIST(root="~/.torch/data/mnist", train=False, download=True), (target_1, target_2), n_classes=10, n_splits=n_tasks)
+    train_dsets = _displit(MNIST(root="~/.torch/data/mnist", train=True, download=True),(target_1, target_2), n_splits=n_tasks, **kwargs)
+    test_dsets = _displit(MNIST(root="~/.torch/data/mnist", train=False, download=True), (target_1, target_2), n_splits=n_tasks, **kwargs)
 
-    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(len(test_dsets))]
-    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(len(test_dsets))]
 
+    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size, shuffle=kwargs['shuffle']) for idx in range(len(test_dsets))]
+    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size) for idx in range(len(test_dsets))]
+
+    # a = iter(train_loader[0])
+    # for _ in range(10):
+    #     _d = next(a)[1]
+    #     print(_d)
+ 
     return (train_loader, test_loader,kwargs)
 
 
 def get_CIsplitmnist(batch_size=128, **kwargs):
     n_tasks= 5 if not kwargs['n_tasks'] else kwargs['n_tasks']
-    kwargs = {'n_classes':10, 'hidden':200, \
+    kwargs.update({'n_classes':10, 'hidden':200, \
               'badam_mean_eta': 0.1, 'badam_std': 0.01,\
-              'bgd_mean_eta': 10, 'bgd_std': 0.01,\
+              'bgd_mean_eta': 10, 'bgd_std': 0.017,\
               'ewc_lambda': 100, 'ewc_decay': 0.7,\
               'mas_lambda': 1.0, 'mas_alpha': 0.6,\
               'si_lambda': 1.0,\
               'tfcl_lambda': 0.4,\
               'vcl_beta': 0.1
-                }
+                })
     train_dsets = _split(MNIST(root="~/.torch/data/mnist", train=True, download=True), n_classes=10, n_splits=n_tasks)
     test_dsets = _split(MNIST(root="~/.torch/data/mnist", train=False, download=True), n_classes=10, n_splits=n_tasks)
 
-    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
-    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
+    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size, shuffle=kwargs['shuffle']) for idx in range(n_tasks)]
+    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size) for idx in range(n_tasks)]
     
     return (train_loader, test_loader,kwargs)
 
@@ -179,8 +195,8 @@ def get_CIcifar(batch_size=128, **kwargs):
     train_dsets = _split(CIFAR10(root="~/.torch/data/cifar10", train=True, download=True), n_classes=10, n_splits=n_tasks, flatten=False)
     test_dsets = _split(CIFAR10(root="~/.torch/data/cifar10", train=False, download=True), n_classes=10, n_splits=n_tasks, flatten=False)
 
-    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
-    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(n_tasks)]
+    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size, shuffle=kwargs['shuffle']) for idx in range(n_tasks)]
+    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size, shuffle=True) for idx in range(n_tasks)]
     
     return (train_loader, test_loader,kwargs)
 
@@ -188,7 +204,7 @@ def get_CIcifar(batch_size=128, **kwargs):
 def get_DIcifar(batch_size=128, **kwargs):
     n_tasks= 5 if not kwargs['n_tasks'] else kwargs['n_tasks']
         
-    kwargs = {'n_classes':10, 'hidden':200, \
+    kwargs.update({'n_classes':10, 'hidden':200, \
               'badam_mean_eta': 0.2, 'badam_std': 0.01,\
               'bgd_mean_eta': 1, 'bgd_std': 0.01,\
               'ewc_lambda': 1000, 'ewc_decay': 0.9,\
@@ -196,13 +212,13 @@ def get_DIcifar(batch_size=128, **kwargs):
               'si_lambda': 1.0,\
               'tfcl_lambda': 0.5,\
               'vcl_beta': 0.01
-                }
+                })
     target_1 = [0,2,4,6,8]
     target_2 = [1,3,5,7,9]
     train_dsets = _displit(CIFAR10(root="~/.torch/data/cifar10", train=True, download=True),(target_1, target_2), n_classes=10, n_splits=n_tasks, flatten=False)
     test_dsets = _displit(CIFAR10(root="~/.torch/data/cifar10", train=False, download=True), (target_1, target_2), n_classes=10, n_splits=n_tasks, flatten=False)
 
-    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(len(test_dsets))]
-    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,num_workers=1, shuffle=True) for idx in range(len(test_dsets))]
+    train_loader = [DataLoader(train_dsets[idx], batch_size=batch_size, shuffle=kwargs['shuffle']) for idx in range(len(test_dsets))]
+    test_loader = [DataLoader(test_dsets[idx], batch_size=batch_size,shuffle=True) for idx in range(len(test_dsets))]
 
     return (train_loader, test_loader,kwargs)

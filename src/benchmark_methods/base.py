@@ -9,9 +9,12 @@ from tqdm import tqdm
 class BaseCLMethod:
     def __init__(self, model, train_loader, test_loader, file_name, **kwargs):
         self._run = kwargs['run']
+        self._shuffle = kwargs['shuffle']
         self.model = model.to(kwargs["device"])
         self.train_loader = train_loader
         self.test_loader = test_loader
+        self.buffer_len = kwargs['buffer_len']
+        self.test_every = kwargs['test_every']
         self.dim=next(iter(train_loader[0]))[0].shape[1]
         self.epochs = kwargs["epochs"]
         self.device = kwargs["device"]
@@ -26,6 +29,13 @@ class BaseCLMethod:
         self.test_acc_list = [[] for _ in range(len(self.test_loader))]
         self.kwargs = kwargs
         
+    def save_draw_probs(self):
+        probs = []
+        if self.kwargs['graduated']:
+            for data in self.train_loader[0]:
+                probs.append(self.train_loader[0].draw_probs)
+            self.save(probs, self.root+'GRADUATED_DRAW_PROBS')
+
     def get_task_boundaries(self, graduated=False):
         loaders = self.train_loader
         if graduated:
@@ -40,6 +50,7 @@ class BaseCLMethod:
 
 
     def run(self):
+        #self.save_draw_probs()
         for task in tqdm(self.train_loader):
             self.train(task)
             self.test()
@@ -56,13 +67,13 @@ class BaseCLMethod:
             for data in task:
                 x, y = data[0].to(self.device), data[1].to(self.device)
                 preds = self.model(x)
-                task_acc += ((torch.argmax(preds, dim=1) == y).sum()) / len(y)
+                task_acc += float((torch.argmax(preds, dim=1) == y).sum()) / len(y)            
             task_acc /= len(task)
             self.test_acc_list[idx].append(task_acc)
             #print(f"Task {idx} Accuracy: {task_acc}")
 
     def save(self, obj,file_path):
-        with open(file_path+f'_run_{str(self._run)}', 'wb') as f:
+        with open(file_path+f'_shuffle_{self._shuffle}_run_{str(self._run)}', 'wb') as f:
             pickle.dump(obj, f)
 
     # def zerolike_params_dict(self):

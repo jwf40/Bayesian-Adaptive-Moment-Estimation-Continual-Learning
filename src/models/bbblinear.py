@@ -8,8 +8,7 @@ def KL_DIV(mu_p, sig_p, mu_q, sig_q):
     return kl
 
 
-class BBBLinear(nn.Module):
-    
+class BBBLinear(nn.Module):    
     def __init__(self, in_features, out_features, bias=True, priors=None):
         super().__init__()
         self.in_features = in_features
@@ -36,6 +35,7 @@ class BBBLinear(nn.Module):
             self.register_parameter('bias_rho', None)
 
         self.reset_parameters()
+        
 
     def reset_parameters(self):
         self.W_mu.data.normal_(0, 0.1)

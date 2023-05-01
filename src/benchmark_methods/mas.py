@@ -72,17 +72,25 @@ class MAS(BaseCLMethod):
         return self.lambda_ * loss_reg
 
     def train(self, loader):        
-        for ep in tqdm(range(self.epochs)):
-            for idx, data in enumerate(tqdm(loader)):
-                self.optim.zero_grad()
-                x, y = data[0].to(self.device), data[1].to(self.device)
-                out = self.model(x)
-                loss = self.criterion(out, y)
-                loss += self._calc_reg()
-                loss.backward()
-                self.optim.step()
-
-                if not self.use_labels and idx %5000==0:
+        xbuffer = []
+        ybuffer = []
+        for epoch in tqdm(range(self.epochs)):
+            rloss = 0
+            for idx,batch in enumerate(tqdm(loader)):
+                x, y = batch[0].to(self.device), batch[1].to(self.device)
+                xbuffer.append(x)
+                ybuffer.append(y)
+                if len(ybuffer) >= self.buffer_len: 
+                    _x = torch.stack(xbuffer).squeeze(1) if self.buffer_len > 1 else x
+                    _y = torch.stack(ybuffer).squeeze(1) if self.buffer_len > 1 else y
+                    out = self.model(_x)
+                    loss = self.criterion(out, _y)
+                    loss += self._calc_reg()
+                    loss.backward()
+                    self.optim.step()
+                    xbuffer = []
+                    ybuffer = []
+                if not self.use_labels and idx %self.test_every==0:
                     # self.params = dict([(n, p.data.clone()) for n,p in self.model.named_parameters()])
                     self._update_importances(x)
                     self.test()
