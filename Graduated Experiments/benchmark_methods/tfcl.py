@@ -1,3 +1,7 @@
+"""
+Adapted From:
+|| https://github.com/kkelchte/task_free_continual_learning
+"""
 import numpy as np
 import os, sys, time
 import numpy.random as rn

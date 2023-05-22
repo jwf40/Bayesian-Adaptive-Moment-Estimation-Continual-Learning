@@ -1,7 +1,3 @@
-"""
-Adapted From: 
-|| https://github.com/Piyush-555/VCL-in-PyTorch
-"""
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

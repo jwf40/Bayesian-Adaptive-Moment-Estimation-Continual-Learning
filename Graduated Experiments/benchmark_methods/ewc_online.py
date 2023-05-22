@@ -1,3 +1,8 @@
+"""
+Adapted From:
+|| https://github.com/ContinualAI/avalanche/blob/master/avalanche/training/plugins/ewc.py
+"""
+
 from collections import defaultdict
 import itertools
 import numpy as np

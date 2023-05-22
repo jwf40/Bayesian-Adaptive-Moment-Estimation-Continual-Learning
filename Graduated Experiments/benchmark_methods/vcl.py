@@ -1,3 +1,7 @@
+"""
+Adapted From:
+|| https://github.com/Piyush-555/VCL-in-PyTorch
+"""
 import numpy as np
 from tqdm import tqdm
 import torch

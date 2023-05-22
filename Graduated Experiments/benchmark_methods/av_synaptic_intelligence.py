@@ -1,3 +1,8 @@
+"""
+Adapted from Avalanche implementation
+|| https://github.com/ContinualAI/avalanche/blob/master/avalanche/training/plugins/synaptic_intelligence.py
+"""
+
 import warnings
 from fnmatch import fnmatch
 from typing import Sequence, Any, Set, List, Tuple, Dict, Union, TYPE_CHECKING

@@ -1,3 +1,8 @@
+"""
+Adapted From:
+|| https://github.com/ContinualAI/avalanche/blob/master/avalanche/training/plugins/mas.py
+"""
+
 import numpy as np
 import pickle
 import torch
