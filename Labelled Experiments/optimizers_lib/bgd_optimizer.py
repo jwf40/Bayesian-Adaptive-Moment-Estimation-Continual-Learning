@@ -1,3 +1,6 @@
+"""
+From https://github.com/igolan/bgd/tree/master/utils
+"""
 import torch
 from torch.optim.optimizer import Optimizer
 

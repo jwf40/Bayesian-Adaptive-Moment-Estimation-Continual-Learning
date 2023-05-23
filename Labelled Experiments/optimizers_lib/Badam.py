@@ -1,3 +1,7 @@
+"""
+BAdam optimiser, 
+built upon the BGD optimizer from: https://github.com/igolan/bgd/tree/master/utils
+"""
 import torch
 import math
 from torch.optim.optimizer import Optimizer
