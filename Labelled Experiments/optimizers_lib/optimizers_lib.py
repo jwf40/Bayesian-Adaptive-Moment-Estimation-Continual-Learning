@@ -1,6 +1,5 @@
 import torch.optim as optim
 from .bgd_optimizer import BGD
-from .fast_bgd import Fast_BGD
 from .Badam import Badam
 
 def badam(model, **kwargs):
@@ -10,16 +9,16 @@ def badam(model, **kwargs):
         "mc_iters": kwargs.get("mc_iters", 10),
     }
     all_params = [{'params': params} for l, (name, params) in enumerate(model.named_parameters())]
-    return Fast_BGD(all_params, **bgd_params)
+    return Badam(all_params, **bgd_params)
 
-def fastbgd(model, **kwargs):
-    bgd_params = {
-        "mean_eta": kwargs.get("mean_eta", 1),
-        "std_init": kwargs.get("std_init", 0.06),
-        "mc_iters": kwargs.get("mc_iters", 10),
-    }
-    all_params = [{'params': params} for l, (name, params) in enumerate(model.named_parameters())]
-    return Fast_BGD(all_params, **bgd_params)
+# def fastbgd(model, **kwargs):
+#     bgd_params = {
+#         "mean_eta": kwargs.get("mean_eta", 1),
+#         "std_init": kwargs.get("std_init", 0.06),
+#         "mc_iters": kwargs.get("mc_iters", 10),
+#     }
+#     all_params = [{'params': params} for l, (name, params) in enumerate(model.named_parameters())]
+#     return Fast_BGD(all_params, **bgd_params)
 
 def bgd(model, **kwargs):
     bgd_params = {

@@ -31,7 +31,7 @@ class Badam(Optimizer):
         :param mc_iters: Number of Monte Carlo iteration. Used for correctness check.
                          Use None to disable the check.
         """
-        super(Fast_BGD, self).__init__(params, defaults={})
+        super(Badam, self).__init__(params, defaults={})
         assert mc_iters is None or (type(mc_iters) == int and mc_iters > 0), "mc_iters should be positive int or None."
         self.std_init = std_init
         self.mean_eta = mean_eta

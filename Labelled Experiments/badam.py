@@ -1,4 +1,4 @@
-from typing import Optional, Sequence, List, Union
+from typing import Optional, Sequence, List, Union, Iterable
 import numpy as np
 import torch
 from torch.nn import Module, CrossEntropyLoss
@@ -26,7 +26,8 @@ from avalanche.training.plugins import (
     BiCPlugin,
     MIRPlugin,
 )
-from avalanche.training.templates.base import BaseTemplate
+from avalanche.benchmarks import CLExperience, CLStream
+from avalanche.training.templates.base import BaseTemplate, _group_experiences_by_stream
 from avalanche.training.templates import SupervisedTemplate
 from avalanche.models.generator import MlpVAE, VAE_loss
 from avalanche.logging import InteractiveLogger
@@ -105,8 +106,8 @@ class BAdam(SupervisedTemplate):
             mean.append(torch.mean(group["mean_param"]).detach().cpu())
             std.append(torch.mean(group["std_param"]).detach().cpu())
         _opt = str(type(self.optimizer)).replace('>', '').replace("'","").split(".")[-1]
-        self.running_params._append({'Mean':np.mean(mean),'Std': np.mean(std)}, ignore_index=True)
-        self.running_params.to_csv(f"{_opt}_param_changes.csv", index=False)            
+        self.running_params = self.running_params._append({'mean':np.mean(mean),'std': np.mean(std)}, ignore_index=True)
+        #self.running_params.to_csv(f"{_opt}_param_changes.csv", index=False)            
 
         for self.mbatch in self.dataloader:
             if self._stop_training:
@@ -125,7 +126,7 @@ class BAdam(SupervisedTemplate):
                 self.loss += self.criterion()
                 self.optimizer.zero_grad()
                 self._before_backward(**kwargs)
-                self.backward(retain_graph=True)
+                self.backward(retain_graph = True)
                 self._after_backward(**kwargs)
                 self.optimizer.aggregate_grads(len(self.mbatch))
             # Optimization step
@@ -134,3 +135,60 @@ class BAdam(SupervisedTemplate):
             self._after_update(**kwargs)
 
             self._after_training_iteration(**kwargs)
+        
+
+
+    def train(
+            self,
+            experiences,
+            eval_streams= None,
+            **kwargs,
+        ):            
+            self.is_training = True
+            self._stop_training = False
+
+            self.model.train()
+            self.model.to(self.device)
+
+            # Normalize training and eval data.
+            if not isinstance(experiences, Iterable):
+                experiences = [experiences]
+            if eval_streams is None:
+                eval_streams = [experiences]
+
+            self._eval_streams = _group_experiences_by_stream(eval_streams)
+
+            self._before_training(**kwargs)
+
+            for self.experience in experiences:
+                self._before_training_exp(**kwargs)
+                self._train_exp(self.experience, eval_streams, **kwargs)
+                self._after_training_exp(**kwargs)
+            self._after_training(**kwargs)
+            return self.running_params
+
+    # def _train_exp(
+    #     self, experience: CLExperience, eval_streams=None, **kwargs
+    # ):
+    #     """Training loop over a single Experience object.
+
+    #     :param experience: CL experience information.
+    #     :param eval_streams: list of streams for evaluation.
+    #         If None: use the training experience for evaluation.
+    #         Use [] if you do not want to evaluate during training.
+    #     :param kwargs: custom arguments.
+    #     """
+    #     if eval_streams is None:
+    #         eval_streams = [experience]
+    #     for i, exp in enumerate(eval_streams):
+    #         if not isinstance(exp, Iterable):
+    #             eval_streams[i] = [exp]
+    #     for _ in range(self.train_epochs):
+    #         self._before_training_epoch(**kwargs)
+
+    #         if self._stop_training:  # Early stopping
+    #             self._stop_training = False
+    #             break
+
+    #         self.training_epoch(**kwargs)
+    #         self._after_training_epoch(**kwargs)

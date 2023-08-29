@@ -1,10 +1,13 @@
 avalanche_lib==0.3.1
 matplotlib==3.7.1
-numpy==1.23.5
+numpy>=1.23.5
 numpy==1.24.2
 pandas==2.0.0
-Pillow==9.4.0
+Pillow>=9.4.0
 Pillow==10.0.0
 torch==1.13.1
 torchvision==0.14.1
 tqdm==4.65.0
+gymnasium[classic-control]
+gymnasium[box2d]
+git+https://github.com/ContinualAI/avalanche-rl.git

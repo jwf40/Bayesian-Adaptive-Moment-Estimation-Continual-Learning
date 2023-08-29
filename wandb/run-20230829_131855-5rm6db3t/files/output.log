@@ -1,0 +1,215 @@
+BBBLinear()
+BBBLinear()
+-- >> Start of training phase << --
+SKIPPING RESET OPTIMIZER!!!!
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.36it/s]
+Epoch 0 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.2517
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.45it/s]
+Epoch 1 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.6282
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.32it/s]
+Epoch 2 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7158
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.42it/s]
+Epoch 3 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7518
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.39it/s]
+Epoch 4 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8043
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.46it/s]
+Epoch 5 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8391
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.43it/s]
+Epoch 6 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8699
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.41it/s]
+Epoch 7 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8918
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.36it/s]
+Epoch 8 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9063
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 23.84it/s]
+Epoch 9 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9228
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.48it/s]
+Epoch 10 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9270
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 23.25it/s]
+Epoch 11 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9363
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.47it/s]
+Epoch 12 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9448
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 23.84it/s]
+Epoch 13 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9458
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.28it/s]
+Epoch 14 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9496
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.40it/s]
+Epoch 15 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9534
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.44it/s]
+Epoch 16 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9550
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.39it/s]
+Epoch 17 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9587
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.41it/s]
+Epoch 18 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9610
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 23.77it/s]
+Epoch 19 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9637
+-- >> End of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 56.84it/s]
+> Eval on experience 0 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 0.9833
+-- Starting eval on experience 1 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 56.74it/s]
+> Eval on experience 1 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 0.0000
+-- Starting eval on experience 2 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 55.38it/s]
+> Eval on experience 2 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0000
+-- Starting eval on experience 3 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 53.89it/s]
+> Eval on experience 3 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp003 = 0.0000
+-- Starting eval on experience 4 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 56.52it/s]
+> Eval on experience 4 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp004 = 0.0000
+-- >> End of eval phase << --
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.1888
+-- >> Start of training phase << --
+SKIPPING RESET OPTIMIZER!!!!
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:02<00:00, 24.10it/s]
+Epoch 0 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.0002
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:02<00:00, 24.17it/s]
+Epoch 1 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.2356
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:02<00:00, 24.52it/s]
+Epoch 2 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7488
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:02<00:00, 24.41it/s]
+Epoch 3 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9106
+ 32%|██████████████████████████████████████▍                                                                                 | 16/50 [00:00<00:01, 24.07it/s]
+Epoch 4 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9367
+ 26%|███████████████████████████████▏                                                                                        | 13/50 [00:00<00:01, 23.60it/s]
+Epoch 5 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9493
+ 26%|███████████████████████████████▏                                                                                        | 13/50 [00:00<00:01, 23.97it/s]
+Epoch 6 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9600
+ 24%|████████████████████████████▊                                                                                           | 12/50 [00:00<00:01, 23.80it/s]
+Epoch 7 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9628
+ 18%|█████████████████████▊                                                                                                   | 9/50 [00:00<00:01, 23.50it/s]
+Epoch 8 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9660
+ 16%|███████████████████▎                                                                                                     | 8/50 [00:00<00:01, 23.45it/s]
+Epoch 9 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9706
+ 14%|████████████████▉                                                                                                        | 7/50 [00:00<00:01, 23.40it/s]
+Epoch 10 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9709
+ 12%|██████████████▌                                                                                                          | 6/50 [00:00<00:01, 23.91it/s]
+Epoch 11 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9725
+ 84%|████████████████████████████████████████████████████████████████████████████████████████████████████▊                   | 42/50 [00:01<00:00, 23.92it/s]
+ 82%|██████████████████████████████████████████████████████████████████████████████████████████████████▍                     | 41/50 [00:01<00:00, 24.12it/s]
+ 80%|████████████████████████████████████████████████████████████████████████████████████████████████                        | 40/50 [00:01<00:00, 24.05it/s]
+ 78%|█████████████████████████████████████████████████████████████████████████████████████████████▌                          | 39/50 [00:01<00:00, 24.07it/s]
+ 76%|███████████████████████████████████████████████████████████████████████████████████████████▏                            | 38/50 [00:01<00:00, 24.11it/s]
+ 72%|██████████████████████████████████████████████████████████████████████████████████████▍                                 | 36/50 [00:01<00:00, 23.32it/s]
+ 72%|██████████████████████████████████████████████████████████████████████████████████████▍                                 | 36/50 [00:01<00:00, 24.50it/s]
+ 72%|██████████████████████████████████████████████████████████████████████████████████████▍                                 | 36/50 [00:01<00:00, 24.48it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 54.47it/s]
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 54.47it/s]
+> Eval on experience 0 (Task 0) from test stream ended.
+	ExperienceForgetting/eval_phase/test_stream/Task000/Exp000 = 0.9833
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 0.0000
+-- Starting eval on experience 1 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 55.29it/s]
+> Eval on experience 1 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 0.9944
+-- Starting eval on experience 2 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 52.40it/s]
+> Eval on experience 2 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0000
+-- Starting eval on experience 3 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 51.96it/s]
+> Eval on experience 3 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp003 = 0.0000
+-- Starting eval on experience 4 (Task 0) from test stream --
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:00<00:00, 54.75it/s]
+> Eval on experience 4 (Task 0) from test stream ended.
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp004 = 0.0000
+-- >> End of eval phase << --
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.2132
+-- >> Start of training phase << --
+SKIPPING RESET OPTIMIZER!!!!
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.29it/s]
+Epoch 0 ended.
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.0059
+ 35%|█████████████████████████████████████████▋                                                                              | 16/46 [00:00<00:01, 19.91it/s]
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.29it/s]
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.29it/s]
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.29it/s]
+Traceback (most recent call last):
+  File "/tf/notebooks/Labelled Experiments/main.py", line 101, in <module>
+    mean_stds = cl_strategy.train(train_exp)
+  File "/tf/notebooks/Labelled Experiments/badam.py", line 165, in train
+    self._train_exp(self.experience, eval_streams, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/training/templates/base_sgd.py", line 264, in _train_exp
+    self.training_epoch(**kwargs)
+  File "/tf/notebooks/Labelled Experiments/badam.py", line 112, in training_epoch
+    for self.mbatch in self.dataloader:
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/data_loader.py", line 104, in __iter__
+    for el in self._dl.__iter__():
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/data_loader.py", line 216, in __iter__
+    batch = next(t_loader)
+  File "/usr/local/lib/python3.8/dist-packages/torch/utils/data/dataloader.py", line 628, in __next__
+    data = self._next_data()
+  File "/usr/local/lib/python3.8/dist-packages/torch/utils/data/dataloader.py", line 671, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/usr/local/lib/python3.8/dist-packages/torch/utils/data/_utils/fetch.py", line 58, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/usr/local/lib/python3.8/dist-packages/torch/utils/data/_utils/fetch.py", line 58, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/data.py", line 278, in __getitem__
+    elem = self._getitem_recursive_call(
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/data.py", line 265, in _getitem_recursive_call
+    element = dd._getitem_recursive_call(idx, group_name=group_name)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/data.py", line 265, in _getitem_recursive_call
+    element = dd._getitem_recursive_call(idx, group_name=group_name)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/data.py", line 265, in _getitem_recursive_call
+    element = dd._getitem_recursive_call(idx, group_name=group_name)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/data.py", line 274, in _getitem_recursive_call
+    element = self._transform_groups(element, group_name=group_name)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/transform_groups.py", line 84, in __call__
+    element = curr_t(*element)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/benchmarks/utils/transforms.py", line 210, in __call__
+    args[idx] = transform(args[idx])
+  File "/usr/local/lib/python3.8/dist-packages/torchvision/transforms/transforms.py", line 95, in __call__
+    img = t(img)
+  File "/usr/local/lib/python3.8/dist-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/torchvision/transforms/transforms.py", line 270, in forward
+    return F.normalize(tensor, self.mean, self.std, self.inplace)
+  File "/usr/local/lib/python3.8/dist-packages/torchvision/transforms/functional.py", line 360, in normalize
+    return F_t.normalize(tensor, mean=mean, std=std, inplace=inplace)
+  File "/usr/local/lib/python3.8/dist-packages/torchvision/transforms/functional_tensor.py", line 940, in normalize
+    return tensor.sub_(mean).div_(std)
+KeyboardInterrupt
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46/46 [00:01<00:00, 24.29it/s]

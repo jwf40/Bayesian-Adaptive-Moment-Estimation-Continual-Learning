@@ -1,0 +1,19 @@
+BBBLinear()
+BBBLinear()
+-- >> Start of training phase << --
+Traceback (most recent call last):
+  File "main.py", line 99, in <module>
+    cl_strategy.train(train_exp)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/training/templates/base_sgd.py", line 146, in train
+    super().train(experiences, eval_streams, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/training/templates/base.py", line 115, in train
+    self._before_training_exp(**kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/training/templates/base_sgd.py", line 237, in _before_training_exp
+    self.check_model_and_optimizer()
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/training/templates/observation_type/batch_observation.py", line 31, in check_model_and_optimizer
+    self.make_optimizer()
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/training/templates/observation_type/batch_observation.py", line 27, in make_optimizer
+    reset_optimizer(self.optimizer, self.model)
+  File "/usr/local/lib/python3.8/dist-packages/avalanche/models/dynamic_optimizers.py", line 30, in reset_optimizer
+    assert len(optimizer.param_groups) == 1
+AssertionError
