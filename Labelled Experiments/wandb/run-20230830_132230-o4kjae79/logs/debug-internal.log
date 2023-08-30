@@ -1,0 +1,74 @@
+2023-08-30 13:22:30,105 INFO    StreamThr :871328 [internal.py:wandb_internal():86] W&B internal server running at pid: 871328, started at: 2023-08-30 13:22:30.105159
+2023-08-30 13:22:30,107 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: status
+2023-08-30 13:22:30,108 INFO    WriterThread:871328 [datastore.py:open_for_write():85] open: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/run-o4kjae79.wandb
+2023-08-30 13:22:30,108 DEBUG   SenderThread:871328 [sender.py:send():379] send: header
+2023-08-30 13:22:30,121 DEBUG   SenderThread:871328 [sender.py:send():379] send: run
+2023-08-30 13:22:30,442 INFO    SenderThread:871328 [dir_watcher.py:__init__():211] watching files in: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files
+2023-08-30 13:22:30,442 INFO    SenderThread:871328 [sender.py:_start_run_threads():1121] run started: o4kjae79 with start time 1693401750.104858
+2023-08-30 13:22:30,442 DEBUG   SenderThread:871328 [sender.py:send_request():406] send_request: summary_record
+2023-08-30 13:22:30,442 INFO    SenderThread:871328 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-08-30 13:22:30,447 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: check_version
+2023-08-30 13:22:30,447 DEBUG   SenderThread:871328 [sender.py:send_request():406] send_request: check_version
+2023-08-30 13:22:30,494 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: run_start
+2023-08-30 13:22:30,500 DEBUG   HandlerThread:871328 [system_info.py:__init__():31] System info init
+2023-08-30 13:22:30,500 DEBUG   HandlerThread:871328 [system_info.py:__init__():46] System info init done
+2023-08-30 13:22:30,500 INFO    HandlerThread:871328 [system_monitor.py:start():181] Starting system monitor
+2023-08-30 13:22:30,500 INFO    SystemMonitor:871328 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-08-30 13:22:30,500 INFO    HandlerThread:871328 [system_monitor.py:probe():201] Collecting system info
+2023-08-30 13:22:30,501 INFO    SystemMonitor:871328 [interfaces.py:start():190] Started cpu monitoring
+2023-08-30 13:22:30,501 INFO    SystemMonitor:871328 [interfaces.py:start():190] Started disk monitoring
+2023-08-30 13:22:30,502 INFO    SystemMonitor:871328 [interfaces.py:start():190] Started gpu monitoring
+2023-08-30 13:22:30,503 INFO    SystemMonitor:871328 [interfaces.py:start():190] Started memory monitoring
+2023-08-30 13:22:30,504 INFO    SystemMonitor:871328 [interfaces.py:start():190] Started network monitoring
+2023-08-30 13:22:30,543 DEBUG   HandlerThread:871328 [system_info.py:probe():195] Probing system
+2023-08-30 13:22:30,549 DEBUG   HandlerThread:871328 [system_info.py:_probe_git():180] Probing git
+2023-08-30 13:22:30,557 ERROR   HandlerThread:871328 [gitlib.py:root():89] git root error: Cmd('git') failed due to: exit code(128)
+  cmdline: git rev-parse --show-toplevel
+  stderr: 'fatal: detected dubious ownership in repository at '/tf/notebooks'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /tf/notebooks'
+2023-08-30 13:22:30,557 DEBUG   HandlerThread:871328 [system_info.py:_probe_git():188] Probing git done
+2023-08-30 13:22:30,557 DEBUG   HandlerThread:871328 [system_info.py:probe():240] Probing system done
+2023-08-30 13:22:30,557 DEBUG   HandlerThread:871328 [system_monitor.py:probe():210] {'os': 'Linux-5.15.0-79-generic-x86_64-with-glibc2.29', 'python': '3.8.10', 'heartbeatAt': '2023-08-30T13:22:30.543169', 'startedAt': '2023-08-30T13:22:30.100807', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': 'main.py', 'codePath': 'main.py', 'git': {'remote': 'https://github.com/jwf40/Bayesian-Adaptive-Moment-Estimation-Continual-Learning.git', 'commit': None}, 'email': 'scailab@proton.me', 'root': '/tf/notebooks/Labelled Experiments', 'host': '7cc948f35b80', 'username': 'root', 'executable': '/usr/bin/python', 'cpu_count': 38, 'cpu_count_logical': 76, 'cpu_freq': {'current': 2444.378644736842, 'min': 800.0, 'max': 3400.0}, 'cpu_freq_per_core': [{'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 3298.473, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 3248.753, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 3288.739, 'min': 800.0, 'max': 3400.0}], 'disk': {'total': 3650.812698364258, 'used': 2777.950611114502}, 'gpu': 'NVIDIA GeForce RTX 4090', 'gpu_count': 4, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}, {'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}, {'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}, {'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}], 'memory': {'total': 503.34048080444336}}
+2023-08-30 13:22:30,557 INFO    HandlerThread:871328 [system_monitor.py:probe():211] Finished collecting system info
+2023-08-30 13:22:30,557 INFO    HandlerThread:871328 [system_monitor.py:probe():214] Publishing system info
+2023-08-30 13:22:30,557 DEBUG   HandlerThread:871328 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-08-30 13:22:30,558 DEBUG   HandlerThread:871328 [system_info.py:_save_pip():67] Saving pip packages done
+2023-08-30 13:22:30,558 INFO    HandlerThread:871328 [system_monitor.py:probe():216] Finished publishing system info
+2023-08-30 13:22:30,563 DEBUG   SenderThread:871328 [sender.py:send():379] send: files
+2023-08-30 13:22:30,563 INFO    SenderThread:871328 [sender.py:_save_file():1375] saving file wandb-metadata.json with policy now
+2023-08-30 13:22:30,569 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-30 13:22:30,569 DEBUG   SenderThread:871328 [sender.py:send():379] send: telemetry
+2023-08-30 13:22:30,569 DEBUG   SenderThread:871328 [sender.py:send_request():406] send_request: stop_status
+2023-08-30 13:22:31,078 INFO    wandb-upload_0:871328 [upload_job.py:push():131] Uploaded file /tmp/tmpklon5ncvwandb/whdc440k-wandb-metadata.json
+2023-08-30 13:22:31,443 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:31,443 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/wandb-summary.json
+2023-08-30 13:22:31,443 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/wandb-metadata.json
+2023-08-30 13:22:31,443 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/requirements.txt
+2023-08-30 13:22:33,442 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:35,144 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: status_report
+2023-08-30 13:22:35,443 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:37,443 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:39,444 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:40,175 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: status_report
+2023-08-30 13:22:41,444 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:43,445 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:45,205 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: status_report
+2023-08-30 13:22:45,445 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:45,567 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-30 13:22:45,568 DEBUG   SenderThread:871328 [sender.py:send_request():406] send_request: stop_status
+2023-08-30 13:22:47,447 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:49,447 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:50,215 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: status_report
+2023-08-30 13:22:51,450 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:53,451 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:55,247 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: status_report
+2023-08-30 13:22:55,451 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:57,452 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:22:59,452 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log
+2023-08-30 13:23:00,267 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: status_report
+2023-08-30 13:23:00,567 DEBUG   HandlerThread:871328 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-30 13:23:00,567 DEBUG   SenderThread:871328 [sender.py:send_request():406] send_request: stop_status
+2023-08-30 13:23:01,453 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/config.yaml
+2023-08-30 13:23:01,453 INFO    Thread-12 :871328 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230830_132230-o4kjae79/files/output.log

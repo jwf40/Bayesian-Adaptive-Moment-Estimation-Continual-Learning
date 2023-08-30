@@ -1,0 +1,280 @@
+2023-08-29 21:01:10,450 INFO    StreamThr :118969 [internal.py:wandb_internal():86] W&B internal server running at pid: 118969, started at: 2023-08-29 21:01:10.449693
+2023-08-29 21:01:10,451 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status
+2023-08-29 21:01:10,452 INFO    WriterThread:118969 [datastore.py:open_for_write():85] open: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/run-bkzwaipx.wandb
+2023-08-29 21:01:10,452 DEBUG   SenderThread:118969 [sender.py:send():379] send: header
+2023-08-29 21:01:10,453 DEBUG   SenderThread:118969 [sender.py:send():379] send: run
+2023-08-29 21:01:10,819 INFO    SenderThread:118969 [dir_watcher.py:__init__():211] watching files in: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files
+2023-08-29 21:01:10,819 INFO    SenderThread:118969 [sender.py:_start_run_threads():1121] run started: bkzwaipx with start time 1693342869.484236
+2023-08-29 21:01:10,822 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: summary_record
+2023-08-29 21:01:10,822 INFO    SenderThread:118969 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-08-29 21:01:10,826 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: check_version
+2023-08-29 21:01:10,827 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: check_version
+2023-08-29 21:01:10,872 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: run_start
+2023-08-29 21:01:10,872 DEBUG   HandlerThread:118969 [system_info.py:__init__():31] System info init
+2023-08-29 21:01:10,872 DEBUG   HandlerThread:118969 [system_info.py:__init__():46] System info init done
+2023-08-29 21:01:10,872 INFO    HandlerThread:118969 [system_monitor.py:start():181] Starting system monitor
+2023-08-29 21:01:10,873 INFO    SystemMonitor:118969 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-08-29 21:01:10,873 INFO    HandlerThread:118969 [system_monitor.py:probe():201] Collecting system info
+2023-08-29 21:01:10,873 INFO    SystemMonitor:118969 [interfaces.py:start():190] Started cpu monitoring
+2023-08-29 21:01:10,873 INFO    SystemMonitor:118969 [interfaces.py:start():190] Started disk monitoring
+2023-08-29 21:01:10,874 INFO    SystemMonitor:118969 [interfaces.py:start():190] Started gpu monitoring
+2023-08-29 21:01:10,874 INFO    SystemMonitor:118969 [interfaces.py:start():190] Started memory monitoring
+2023-08-29 21:01:10,875 INFO    SystemMonitor:118969 [interfaces.py:start():190] Started network monitoring
+2023-08-29 21:01:10,932 DEBUG   HandlerThread:118969 [system_info.py:probe():195] Probing system
+2023-08-29 21:01:10,932 DEBUG   HandlerThread:118969 [system_info.py:_probe_git():180] Probing git
+2023-08-29 21:01:10,963 ERROR   HandlerThread:118969 [gitlib.py:root():89] git root error: Cmd('git') failed due to: exit code(128)
+  cmdline: git rev-parse --show-toplevel
+  stderr: 'fatal: detected dubious ownership in repository at '/tf/notebooks'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /tf/notebooks'
+2023-08-29 21:01:10,963 DEBUG   HandlerThread:118969 [system_info.py:_probe_git():188] Probing git done
+2023-08-29 21:01:10,963 DEBUG   HandlerThread:118969 [system_info.py:probe():240] Probing system done
+2023-08-29 21:01:10,963 DEBUG   HandlerThread:118969 [system_monitor.py:probe():210] {'os': 'Linux-5.15.0-79-generic-x86_64-with-glibc2.29', 'python': '3.8.10', 'heartbeatAt': '2023-08-29T21:01:10.932494', 'startedAt': '2023-08-29T21:01:09.481926', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': 'main.py', 'codePath': 'main.py', 'git': {'remote': 'https://github.com/jwf40/Bayesian-Adaptive-Moment-Estimation-Continual-Learning.git', 'commit': None}, 'email': 'scailab@proton.me', 'root': '/tf/notebooks/Labelled Experiments', 'host': '7cc948f35b80', 'username': 'root', 'executable': '/usr/bin/python', 'cpu_count': 38, 'cpu_count_logical': 76, 'cpu_freq': {'current': 2436.509315789474, 'min': 800.0, 'max': 3400.0}, 'cpu_freq_per_core': [{'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 3304.733, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 3343.479, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 2400.0, 'min': 800.0, 'max': 3400.0}, {'current': 3308.67, 'min': 800.0, 'max': 3400.0}], 'disk': {'total': 3650.812698364258, 'used': 2774.6497688293457}, 'gpu': 'NVIDIA GeForce RTX 4090', 'gpu_count': 4, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}, {'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}, {'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}, {'name': 'NVIDIA GeForce RTX 4090', 'memory_total': 25757220864}], 'memory': {'total': 503.34048080444336}}
+2023-08-29 21:01:10,963 INFO    HandlerThread:118969 [system_monitor.py:probe():211] Finished collecting system info
+2023-08-29 21:01:10,963 INFO    HandlerThread:118969 [system_monitor.py:probe():214] Publishing system info
+2023-08-29 21:01:10,964 DEBUG   HandlerThread:118969 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-08-29 21:01:10,964 DEBUG   HandlerThread:118969 [system_info.py:_save_pip():67] Saving pip packages done
+2023-08-29 21:01:10,965 INFO    HandlerThread:118969 [system_monitor.py:probe():216] Finished publishing system info
+2023-08-29 21:01:10,965 DEBUG   SenderThread:118969 [sender.py:send():379] send: files
+2023-08-29 21:01:10,966 INFO    SenderThread:118969 [sender.py:_save_file():1375] saving file wandb-metadata.json with policy now
+2023-08-29 21:01:10,970 DEBUG   SenderThread:118969 [sender.py:send():379] send: telemetry
+2023-08-29 21:01:10,970 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:01:10,970 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:01:11,677 INFO    wandb-upload_0:118969 [upload_job.py:push():131] Uploaded file /tmp/tmptbbzps2qwandb/sqywextn-wandb-metadata.json
+2023-08-29 21:01:11,820 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/wandb-metadata.json
+2023-08-29 21:01:11,820 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:11,821 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/requirements.txt
+2023-08-29 21:01:11,821 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_created():271] file/dir created: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/wandb-summary.json
+2023-08-29 21:01:13,820 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:15,460 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:15,821 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:17,821 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:19,822 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:20,470 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:21,823 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:23,823 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:25,477 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:25,824 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:25,969 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:01:25,969 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:01:27,824 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:29,825 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:30,480 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:31,825 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:33,826 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:35,498 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:35,826 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:37,841 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:39,842 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:40,504 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:40,842 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/config.yaml
+2023-08-29 21:01:40,980 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:01:40,985 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:01:41,842 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:43,843 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:45,662 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:45,843 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:47,844 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:49,844 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:50,669 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:51,844 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:53,845 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:55,677 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:01:55,846 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:55,971 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:01:55,971 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:01:57,846 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:01:59,846 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:00,703 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:01,847 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:03,847 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:05,711 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:05,861 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:07,862 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:09,862 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:10,722 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:10,875 DEBUG   SystemMonitor:118969 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-08-29 21:02:10,876 DEBUG   SenderThread:118969 [sender.py:send():379] send: stats
+2023-08-29 21:02:10,970 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:02:10,970 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:02:11,863 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:13,863 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:15,724 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:15,864 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:17,864 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:19,870 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:20,746 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:21,871 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:23,871 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:25,761 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:25,872 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:25,970 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:02:25,970 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:02:27,872 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:29,873 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:30,790 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:31,873 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:33,885 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:35,809 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:35,886 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:37,887 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:39,888 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:40,842 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:40,878 DEBUG   SenderThread:118969 [sender.py:send():379] send: stats
+2023-08-29 21:02:40,970 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:02:40,971 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:02:41,888 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:43,889 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:45,842 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:45,889 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:47,890 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:49,892 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:50,852 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:51,893 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:53,893 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:55,869 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:02:55,894 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:55,971 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: stop_status
+2023-08-29 21:02:55,971 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: stop_status
+2023-08-29 21:02:57,894 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:02:59,894 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:03:00,890 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:03:01,895 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:03:03,895 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:03:05,896 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:03:06,320 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:03:07,108 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: partial_history
+2023-08-29 21:03:07,109 DEBUG   SenderThread:118969 [sender.py:send():379] send: history
+2023-08-29 21:03:07,109 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: summary_record
+2023-08-29 21:03:07,110 INFO    SenderThread:118969 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-08-29 21:03:07,110 DEBUG   SenderThread:118969 [sender.py:send():379] send: telemetry
+2023-08-29 21:03:07,110 DEBUG   SenderThread:118969 [sender.py:send():379] send: exit
+2023-08-29 21:03:07,110 INFO    SenderThread:118969 [sender.py:send_exit():584] handling exit code: 0
+2023-08-29 21:03:07,110 INFO    SenderThread:118969 [sender.py:send_exit():586] handling runtime: 116
+2023-08-29 21:03:07,116 INFO    SenderThread:118969 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-08-29 21:03:07,117 INFO    SenderThread:118969 [sender.py:send_exit():592] send defer
+2023-08-29 21:03:07,117 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,117 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 0
+2023-08-29 21:03:07,117 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,117 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 0
+2023-08-29 21:03:07,117 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 1
+2023-08-29 21:03:07,117 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,117 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 1
+2023-08-29 21:03:07,117 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,117 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 1
+2023-08-29 21:03:07,117 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 2
+2023-08-29 21:03:07,118 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,118 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 2
+2023-08-29 21:03:07,118 INFO    HandlerThread:118969 [system_monitor.py:finish():190] Stopping system monitor
+2023-08-29 21:03:07,118 DEBUG   SystemMonitor:118969 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2023-08-29 21:03:07,118 DEBUG   SystemMonitor:118969 [system_monitor.py:_start():170] Publishing last batch of metrics
+2023-08-29 21:03:07,120 INFO    HandlerThread:118969 [interfaces.py:finish():202] Joined cpu monitor
+2023-08-29 21:03:07,120 INFO    HandlerThread:118969 [interfaces.py:finish():202] Joined disk monitor
+2023-08-29 21:03:07,153 INFO    HandlerThread:118969 [interfaces.py:finish():202] Joined gpu monitor
+2023-08-29 21:03:07,153 INFO    HandlerThread:118969 [interfaces.py:finish():202] Joined memory monitor
+2023-08-29 21:03:07,153 INFO    HandlerThread:118969 [interfaces.py:finish():202] Joined network monitor
+2023-08-29 21:03:07,154 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,154 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 2
+2023-08-29 21:03:07,154 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 3
+2023-08-29 21:03:07,154 DEBUG   SenderThread:118969 [sender.py:send():379] send: stats
+2023-08-29 21:03:07,154 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,154 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 3
+2023-08-29 21:03:07,155 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,155 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 3
+2023-08-29 21:03:07,155 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 4
+2023-08-29 21:03:07,155 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,155 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 4
+2023-08-29 21:03:07,155 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,155 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 4
+2023-08-29 21:03:07,155 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 5
+2023-08-29 21:03:07,155 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,155 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 5
+2023-08-29 21:03:07,155 DEBUG   SenderThread:118969 [sender.py:send():379] send: summary
+2023-08-29 21:03:07,155 INFO    SenderThread:118969 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-08-29 21:03:07,155 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,155 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 5
+2023-08-29 21:03:07,155 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 6
+2023-08-29 21:03:07,156 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,156 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 6
+2023-08-29 21:03:07,156 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,156 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 6
+2023-08-29 21:03:07,159 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: status_report
+2023-08-29 21:03:07,418 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 7
+2023-08-29 21:03:07,419 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,419 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 7
+2023-08-29 21:03:07,419 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,419 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 7
+2023-08-29 21:03:07,720 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 8
+2023-08-29 21:03:07,720 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,720 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 8
+2023-08-29 21:03:07,720 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,720 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 8
+2023-08-29 21:03:07,720 INFO    SenderThread:118969 [job_builder.py:build():281] Attempting to build job artifact
+2023-08-29 21:03:07,721 INFO    SenderThread:118969 [job_builder.py:_get_source_type():411] no source found
+2023-08-29 21:03:07,721 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 9
+2023-08-29 21:03:07,721 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,721 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 9
+2023-08-29 21:03:07,721 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,721 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 9
+2023-08-29 21:03:07,721 INFO    SenderThread:118969 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-08-29 21:03:07,896 INFO    Thread-1045:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:03:07,896 INFO    SenderThread:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/wandb-summary.json
+2023-08-29 21:03:07,896 INFO    SenderThread:118969 [dir_watcher.py:_on_file_modified():288] file/dir modified: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/config.yaml
+2023-08-29 21:03:07,897 INFO    SenderThread:118969 [dir_watcher.py:finish():388] scan: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files
+2023-08-29 21:03:07,897 INFO    SenderThread:118969 [dir_watcher.py:finish():402] scan save: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/wandb-summary.json wandb-summary.json
+2023-08-29 21:03:07,897 INFO    SenderThread:118969 [dir_watcher.py:finish():402] scan save: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/wandb-metadata.json wandb-metadata.json
+2023-08-29 21:03:07,897 INFO    SenderThread:118969 [dir_watcher.py:finish():402] scan save: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log output.log
+2023-08-29 21:03:07,897 INFO    SenderThread:118969 [dir_watcher.py:finish():402] scan save: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/requirements.txt requirements.txt
+2023-08-29 21:03:07,897 INFO    SenderThread:118969 [dir_watcher.py:finish():402] scan save: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/config.yaml config.yaml
+2023-08-29 21:03:07,897 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 10
+2023-08-29 21:03:07,897 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:07,897 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 10
+2023-08-29 21:03:07,901 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:07,901 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 10
+2023-08-29 21:03:07,901 INFO    SenderThread:118969 [file_pusher.py:finish():159] shutting down file pusher
+2023-08-29 21:03:08,109 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: poll_exit
+2023-08-29 21:03:08,110 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: poll_exit
+2023-08-29 21:03:08,287 INFO    wandb-upload_1:118969 [upload_job.py:push():131] Uploaded file /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/output.log
+2023-08-29 21:03:08,312 INFO    wandb-upload_3:118969 [upload_job.py:push():131] Uploaded file /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/config.yaml
+2023-08-29 21:03:08,315 INFO    wandb-upload_2:118969 [upload_job.py:push():131] Uploaded file /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/requirements.txt
+2023-08-29 21:03:08,331 INFO    wandb-upload_0:118969 [upload_job.py:push():131] Uploaded file /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/files/wandb-summary.json
+2023-08-29 21:03:08,531 INFO    Thread-1044:118969 [sender.py:transition_state():612] send defer: 11
+2023-08-29 21:03:08,531 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:08,531 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 11
+2023-08-29 21:03:08,532 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:08,532 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 11
+2023-08-29 21:03:08,532 INFO    SenderThread:118969 [file_pusher.py:join():164] waiting for file pusher
+2023-08-29 21:03:08,532 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 12
+2023-08-29 21:03:08,533 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:08,533 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 12
+2023-08-29 21:03:08,533 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:08,533 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 12
+2023-08-29 21:03:08,533 INFO    SenderThread:118969 [file_stream.py:finish():593] file stream finish called
+2023-08-29 21:03:08,789 INFO    SenderThread:118969 [file_stream.py:finish():597] file stream finish is done
+2023-08-29 21:03:08,789 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 13
+2023-08-29 21:03:08,789 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:08,789 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 13
+2023-08-29 21:03:08,790 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:08,790 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 13
+2023-08-29 21:03:08,790 INFO    SenderThread:118969 [sender.py:transition_state():612] send defer: 14
+2023-08-29 21:03:08,790 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: defer
+2023-08-29 21:03:08,790 INFO    HandlerThread:118969 [handler.py:handle_request_defer():170] handle defer: 14
+2023-08-29 21:03:08,790 DEBUG   SenderThread:118969 [sender.py:send():379] send: final
+2023-08-29 21:03:08,790 DEBUG   SenderThread:118969 [sender.py:send():379] send: footer
+2023-08-29 21:03:08,790 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: defer
+2023-08-29 21:03:08,790 INFO    SenderThread:118969 [sender.py:send_request_defer():608] handle sender defer: 14
+2023-08-29 21:03:08,791 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: poll_exit
+2023-08-29 21:03:08,791 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: poll_exit
+2023-08-29 21:03:08,792 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: server_info
+2023-08-29 21:03:08,792 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: get_summary
+2023-08-29 21:03:08,792 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: sampled_history
+2023-08-29 21:03:08,792 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: server_info
+2023-08-29 21:03:08,792 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: job_info
+2023-08-29 21:03:08,910 DEBUG   SenderThread:118969 [sender.py:send_request():406] send_request: job_info
+2023-08-29 21:03:08,912 DEBUG   HandlerThread:118969 [handler.py:handle_request():144] handle_request: shutdown
+2023-08-29 21:03:08,912 INFO    HandlerThread:118969 [handler.py:finish():861] shutting down handler
+2023-08-29 21:03:09,794 INFO    WriterThread:118969 [datastore.py:close():294] close: /tf/notebooks/Labelled Experiments/wandb/run-20230829_210109-bkzwaipx/run-bkzwaipx.wandb
+2023-08-29 21:03:09,911 INFO    SenderThread:118969 [sender.py:finish():1552] shutting down sender
+2023-08-29 21:03:09,911 INFO    SenderThread:118969 [file_pusher.py:finish():159] shutting down file pusher
+2023-08-29 21:03:09,911 INFO    SenderThread:118969 [file_pusher.py:join():164] waiting for file pusher

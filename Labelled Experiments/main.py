@@ -110,7 +110,7 @@ for exp in exps:
             wandb.log(
                 {
                     'Test Accuracy': results,
-                    'Mean Per Epoch': mean, 
+                    'Mean Per Epoch':mean, 
                     'Std Per Epoch': std
                 }
             )
