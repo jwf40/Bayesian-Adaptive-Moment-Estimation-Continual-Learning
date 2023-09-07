@@ -25,7 +25,7 @@ class VCLModel(nn.Module, BaseModel):
                         BBBLinear(hidden_size, hidden_size),                   
                     )
                 
-
+        layers = nn.Sequential(*layers)
         self.features = layers
         self.classifier = BBBLinear(hidden_size, num_classes)
         self._input_size = input_size
@@ -64,6 +64,7 @@ class VCLModel(nn.Module, BaseModel):
         if self.classifier.use_bias:
             self.classifier.prior_bias_mu = self.classifier.bias_mu.data
             self.classifier.prior_bias_sigma = self.classifier.bias_sigma
+            
     def _to(self, device):
         self.to(device)
         for layer in self.features:

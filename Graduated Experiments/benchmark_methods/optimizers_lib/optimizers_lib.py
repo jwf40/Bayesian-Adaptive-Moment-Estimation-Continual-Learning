@@ -10,7 +10,7 @@ def badam(model, **kwargs):
         "mc_iters": kwargs.get("mc_iters", 10),
     }
     all_params = [{'params': params} for l, (name, params) in enumerate(model.named_parameters())]
-    return Fast_BGD(all_params, **bgd_params)
+    return Badam(all_params, **bgd_params)
 
 def fastbgd(model, **kwargs):
     bgd_params = {

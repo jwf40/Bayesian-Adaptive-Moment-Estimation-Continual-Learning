@@ -79,7 +79,7 @@ def _split(dataset ,n_classes,n_splits, flatten=True, normalize=True, **kwargs):
     return return_li
    
 
-def _displit(dataset, class_split: tuple[list,list], n_splits, flatten=True, normalize=True, **kwargs):
+def _displit(dataset, class_split, n_splits, flatten=True, normalize=True, **kwargs):
     #Number of tensors in dataset, e.g. X, Y would be 2
     n_tensors = len(next(iter(dataset)))
 

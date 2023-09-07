@@ -24,8 +24,8 @@ import wandb
 """
 Select which experiment or method you would like
 """
-exps = ['splitmnist', 'splitfmnist', 'pmnist']#'',,,'
-methods = ['BAdam','BGD','VCL','BAdam','BGD','EWC','Naive', 'MAS','SI']
+exps = ['splitmnist', 'pmnist', 'splitfmnist']#'',,,'
+methods = ['EWC','SI', 'VCL', 'BAdam','BGD', 'Naive', 'MAS']
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -37,14 +37,14 @@ bgd_etas = {'splitmnist': 1.0, 'splitfmnist': 1.0, 'pmnist': 1.0}
 badam_stds = {'splitmnist': 0.011, 'splitfmnist': 0.005,'pmnist': 0.01}
 bgd_stds = {'splitmnist': 0.01, 'splitfmnist': 0.01, 'pmnist': 0.05}
 mas_lambdas = {'splitmnist': 1.0, 'splitfmnist': 0.1}
-vcl_epochs = {'pmnist': 100,'splitmnist': 120, 'splitfmnist': 120}
+vcl_epochs = {'pmnist': 30,'splitmnist': 20, 'splitfmnist': 20}
 
 
 
 for exp in exps:    
-    for run in range(1, 51):
+    for run in range(1,26):
         for idx,method in enumerate(methods):       
-            wandb.init(project=f"{exp}", name=f'{method}_{run}')
+            wandb.init(project=f"NEW_{exp}", name=f'{method}_{run}')
             random.seed(run)
             np.random.seed(run)
             torch.manual_seed(run)
@@ -71,7 +71,7 @@ for exp in exps:
             elif method=='BGD':
                 optimizer = bgd(kwargs['model'], mean_eta=bgd_etas[exp], std_init=bgd_stds[exp])
             elif method=='VCL':
-                optimizer = Adam(kwargs['model'].parameters(), lr=0.001)#
+                optimizer = SGD(kwargs['vcl_model'].parameters(), lr=0.01)#
 
             criterion = CrossEntropyLoss()
 
@@ -82,7 +82,7 @@ for exp in exps:
                     train_mb_size=kwargs['batch_size'], train_epochs=20, eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),
                     'BGD': BAdam(kwargs['model'], optimizer, criterion,\
                     train_mb_size=kwargs['batch_size'], train_epochs=kwargs['epochs'], eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),                    
-                    'EWC': EWC(kwargs['model'],optimizer, criterion,ewc_lambda=10, mode='online',decay_factor=0.9,train_mb_size=kwargs['batch_size'], \
+                    'EWC': EWC(kwargs['model'],optimizer, criterion,ewc_lambda=10, mode='separate',train_mb_size=kwargs['batch_size'], \
                         train_epochs=kwargs['epochs'], eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),
                     'Naive': Naive(kwargs['model'], optimizer, criterion, \
                             train_mb_size=kwargs['batch_size'], train_epochs=kwargs['epochs'], eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),
@@ -99,7 +99,9 @@ for exp in exps:
             results = []
             for train_exp in train_stream:
                 mean_stds = cl_strategy.train(train_exp)
-                results.append(cl_strategy.eval(test_stream)['Top1_Acc_Stream/eval_phase/test_stream/Task000'])
+                evals = cl_strategy.eval(test_stream)#['Top1_Acc_Stream/eval_phase/test_stream/Task000']
+                print(evals)
+                results.append(evals['Top1_Acc_Stream/eval_phase/test_stream/Task000'])
             if isinstance(mean_stds, pd.DataFrame):
                 mean_stds.to_csv(f"{method}_{run}_param_changes.csv", index=False)            
                 mean, std = mean_stds['mean'].to_list(), mean_stds['std'].to_list()

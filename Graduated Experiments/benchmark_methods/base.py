@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
+import wandb
 
 
 class BaseCLMethod:
@@ -51,12 +52,20 @@ class BaseCLMethod:
 
     def run(self):
         #self.save_draw_probs()
+        wandb.init(project=f"Graduated_{self.kwargs['exp']}", name=f"{self.kwargs['alg']}_{self.kwargs['run']}")
         for task in tqdm(self.train_loader):
             self.train(task)
             self.test()
         self.save(self.test_acc_list, self.root+self.file_name)
         is_graduated = 'graduated' if self.kwargs['graduated'] else 'with_boundaries'
         self.save(self.get_task_boundaries(self.kwargs['graduated']), f"results/exp_bounds/{self.kwargs['exp']}_{is_graduated}_task_boundaries")
+        wandb.log(
+            {
+                'Test Accuracy': self.test_acc_list,
+            }
+        )
+        wandb.finish()
+
 
     def train(self, loader):
         raise NotImplementedError

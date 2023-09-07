@@ -17,7 +17,6 @@ import experiments
 from optimizers_lib import fastbgd, bgd
 
 
-
 parser = argparse.ArgumentParser(description='Continual Learning Script')
 parser.add_argument('-a','--alg', help='continual learning algorithm to use',choices=['badam', 'tfcl','bgd','naive', 'ewconline','mas','synaptic_intelligence', 'vcl'],required=True)
 parser.add_argument('-x','--exp', help='experiment to run, and dataset to use.',choices=['CIsplitmnist','CIsplitfmnist','pmnist'], required=True)
@@ -31,14 +30,16 @@ args = vars(parser.parse_args())
 print(args)
 
 if __name__=='__main__':    
-    for run in range(1,11):                                 
+    for run in range(1,26):
+        print("WANDB is in base.py def run()")
+        
         random.seed(run)
         np.random.seed(run)
         torch.manual_seed(run)
         test_every = 40 if 'pmnist' not in args['exp'] else 400
         n_task = 10 if args['exp'] == 'pmnist' else 5                        
         print(f"Starting training of {args['alg']} on  {args['exp']}")
-        args = {'test_every': test_every, 'shuffle': True, 'buffer_len':1,'run': run,'alg': args['alg'], 'exp': args['exp'], 'graduated': True, 'k': 2,'epochs': 1, 'batch_size': 128, 'labels':False, 'n_tasks': n_task, 'device': 'cuda', 'root': 'results/test_acc/Final_Shuffle_NoLabels/'}#
+        args = {'run': run, 'test_every': test_every, 'shuffle': True, 'buffer_len':1,'run': run,'alg': args['alg'], 'exp': args['exp'], 'graduated': True, 'k': 2,'epochs': 1, 'batch_size': 128, 'labels':False, 'n_tasks': n_task, 'device': 'cuda', 'root': 'results/test_acc/Final_Shuffle_NoLabels/'}#
         getattr(experiments, f"{args['alg']}_main")(**args)
             
             

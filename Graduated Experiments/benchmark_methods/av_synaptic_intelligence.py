@@ -48,8 +48,8 @@ class SynapticIntelligence(BaseCLMethod):
     def __init__(
         self,
         model: torch.nn.Module,
-        train_loader: list[Union[DataLoader, GraduatedDataLoader]],
-        test_loader: list[DataLoader],        
+        train_loader ,
+        test_loader, 
         eps: float = 0.0000001,
         excluded_parameters: Sequence["str"] = None,
         **kwargs,

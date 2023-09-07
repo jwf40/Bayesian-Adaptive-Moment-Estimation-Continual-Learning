@@ -1,6 +1,7 @@
 from typing import Optional, Sequence, List, Union, Iterable
 import numpy as np
 import torch
+from copy import deepcopy
 from torch.nn import Module, CrossEntropyLoss
 from torch.optim import Optimizer, SGD
 import torch.nn.functional as F
@@ -73,8 +74,9 @@ class VCL(SupervisedTemplate):
         
         self.beta = 1
         self.elbo = ELBO(self.model, self.beta)
-        for layer in self.model.features:
-            print(layer)
+        for n,p in self.model.named_parameters():
+            print(n)
+        print("done")
 
     def calculate_accuracy(self, outputs, targets):
         return np.mean(outputs.argmax(dim=-1).cpu().numpy() == targets.cpu().numpy())
@@ -93,13 +95,14 @@ class VCL(SupervisedTemplate):
             self.model._to(self.device)     
             self._before_training_iteration(**kwargs)
             outputs = torch.zeros(self.mb_x.shape[0], 10, T, device=self.device)
-            self.loss=0
+            self.loss=0.0
+            self._before_forward(**kwargs)
             for i in range(T):
-                self._before_forward(**kwargs)
+                
 
                 net_out = self.model(self.mb_x)
                 outputs[:, :, i] = F.log_softmax(net_out, dim=-1)
-                self._after_forward(**kwargs)
+            self._after_forward(**kwargs)
             log_output = torch.logsumexp(outputs, dim=-1) - np.log(T)
             self.mb_output = log_output
             kl = self.model.get_kl()
@@ -109,5 +112,5 @@ class VCL(SupervisedTemplate):
             self._after_backward(**kwargs)
             self._before_update(**kwargs)
             self.optimizer.step()
-            self._before_update(**kwargs)
+                        
             self._after_training_iteration(**kwargs)
