@@ -1,6 +1,7 @@
 #!/bin/bash
 DEVICE=$1
-declare -a Methods=("badam" "tfcl" "bgd" "naive" "ewconline" "mas" "synaptic_intelligence" "vcl")
+#declare -a Methods=("badam" "tfcl" "bgd" "naive" "ewconline" "mas" "synaptic_intelligence" "vcl")
+declare -a Methods=("tfcl" "vcl")
 declare -a Exps=("CIsplitmnist" "CIsplitfmnist" "pmnist")
 
 for method in "${Methods[@]}"; do

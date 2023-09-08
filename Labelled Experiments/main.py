@@ -24,8 +24,8 @@ import wandb
 """
 Select which experiment or method you would like
 """
-exps = ['splitmnist', 'pmnist', 'splitfmnist']#'',,,'
-methods = ['EWC','SI', 'VCL', 'BAdam','BGD', 'Naive', 'MAS']
+exps = ['pmnist','splitmnist',  'splitfmnist']#'',,,'
+methods = ['EWC', 'BAdam','SI', 'VCL', 'BGD', 'Naive', 'MAS']
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -82,7 +82,7 @@ for exp in exps:
                     train_mb_size=kwargs['batch_size'], train_epochs=20, eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),
                     'BGD': BAdam(kwargs['model'], optimizer, criterion,\
                     train_mb_size=kwargs['batch_size'], train_epochs=kwargs['epochs'], eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),                    
-                    'EWC': EWC(kwargs['model'],optimizer, criterion,ewc_lambda=10, mode='separate',train_mb_size=kwargs['batch_size'], \
+                    'EWC': EWC(kwargs['model'],optimizer, criterion,ewc_lambda=400, mode='separate',train_mb_size=kwargs['batch_size'], \
                         train_epochs=kwargs['epochs'], eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),
                     'Naive': Naive(kwargs['model'], optimizer, criterion, \
                             train_mb_size=kwargs['batch_size'], train_epochs=kwargs['epochs'], eval_mb_size=kwargs['batch_size'], device=device, evaluator=eval_plugin),

@@ -9,7 +9,7 @@ import torchvision
 from torch import nn
 from torch.optim import Adam, SGD
 import torch.nn.functional as F
-
+import wandb
 from .base import BaseCLMethod
 from .coresets import *
 
@@ -97,6 +97,7 @@ class VCL(BaseCLMethod):
 
 
     def run(self, coreset_method=None, update_prior=True):
+        wandb.init(project=f"Graduated_{self.kwargs['exp']}", name=f"{self.kwargs['alg']}_{self.kwargs['run']}")
         num_tasks = len(self.test_loader)
 
         for task_id in range(len(self.train_loader)):
@@ -108,5 +109,11 @@ class VCL(BaseCLMethod):
             if update_prior and self.use_labels:
                 self.model.update_prior()
         #print(all_accs)
+        wandb.log(
+            {
+                'Test Accuracy': self.test_acc_list,
+            }
+        )
+        wandb.finish()
         self.save(self.test_acc_list, self.root+self.file_name)
         return self.test_acc_list

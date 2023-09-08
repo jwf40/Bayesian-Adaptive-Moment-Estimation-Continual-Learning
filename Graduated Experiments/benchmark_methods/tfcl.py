@@ -6,6 +6,7 @@ import numpy as np
 import os, sys, time
 import numpy.random as rn
 import torch
+import wandb
 from .base import BaseCLMethod
 from tqdm import tqdm
 import numbers
@@ -30,7 +31,8 @@ class Task_free_continual_learning(BaseCLMethod):
         
 
     def run(self,use_hard_buffer=False,continual_learning=True):
-        
+        wandb.init(project=f"Graduated_{self.kwargs['exp']}", name=f"{self.kwargs['alg']}_{self.kwargs['run']}")
+
         count_updates=0
     
         stime=time.time()
@@ -220,5 +222,11 @@ class Task_free_continual_learning(BaseCLMethod):
 
         self.test()        
         print("duration: {0}minutes, count updates: {1}".format((time.time()-stime)/60., count_updates))
+        wandb.log(
+            {
+                'Test Accuracy': self.test_acc_list,
+            }
+        )
+        wandb.finish()
         self.save(self.test_acc_list, self.root+self.file_name)
         return losses, loss_window_means, update_tags, loss_window_variances, test_accs
